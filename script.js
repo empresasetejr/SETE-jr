@@ -1,0 +1,77 @@
+const toggleButton = document.getElementsByClassName("toggle-button")[0];
+const navbarLinks = document.getElementsByClassName("navbar-links")[0];
+
+toggleButton.addEventListener("click", () => {
+    navbarLinks.classList.toggle("active");
+});
+
+/*const cursor = document.querySelector(".cursor");
+const titles = document.querySelectorAll("h1");
+gg
+// Seguir o mouse
+document.addEventListener("mousemove", (e) => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+
+// Quando passar no título
+titles.forEach(title => {
+  title.addEventListener("mouseenter", () => {
+    cursor.classList.add("active");
+  });
+
+  title.addEventListener("mouseleave", () => {
+    cursor.classList.remove("active");
+  });
+});*/
+
+const cursor = document.querySelector(".cursor");
+const titles = document.querySelectorAll("h1");
+
+let mouseX = 0;
+let mouseY = 0;
+
+let posX = 0;
+let posY = 0;
+
+// Captura posição real do mouse
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Efeito ao passar no título 
+titles.forEach(title => {
+  title.addEventListener("mouseenter", () => {
+    cursor.classList.add("active");
+  });
+
+  title.addEventListener("mouseleave", () => {
+    cursor.classList.remove("active");
+  });
+});
+
+// Quando o mouse sai da janela
+document.addEventListener("mouseleave", () => {
+  cursor.classList.add("hidden");
+});
+
+// Quando o mouse volta
+document.addEventListener("mouseenter", () => {
+  cursor.classList.remove("hidden");
+});
+
+// Animação suave (50% mais rápido)
+function animate() {
+  posX += (mouseX - posX) * 0.12;
+  posY += (mouseY - posY) * 0.12;
+
+  cursor.style.left = posX + "px";
+  cursor.style.top = posY + "px";
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+

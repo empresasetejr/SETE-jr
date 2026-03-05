@@ -1,0 +1,271 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(180deg, rgb(0, 0, 0) 25%, rgb(34, 0, 64) 100%);
+    margin: 0
+}
+
+.navbar {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom-color: rgba(178, 85, 215, 0.613);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.navbar img {
+    width: 230px;
+}
+
+.navbar-links {
+    height: 100%;
+}
+
+.navbar-links ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links li {
+    list-style: none;
+}
+
+.navbar-links li a {
+    display: block;
+    text-decoration: none;
+    padding: 1rem;
+    color: #9f97a1;
+    font-weight: 500;
+}
+
+.navbar-links li:hover {
+    background-color: #582fc938;
+}
+
+.toggle-button {
+    position: absolute;
+    top: .75rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+}
+
+.toggle-button .bar {
+    height: 3px;
+    width: 90%;
+    background: linear-gradient(162deg,rgb(124, 116, 129) 0%, rgba(59, 52, 69, 1) 100%);
+    border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .toggle-button {
+        display: flex;
+    }
+
+    .navbar-links {
+        display: none;
+        width: 100%;
+    }
+
+    .navbar-links ul {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .navbar-links ul li {
+        text-align: center;
+    }
+
+    .navbar-links ul li a {
+        padding: .5rem 1rem;
+    }
+
+    .navbar-links.active {
+        display: flex;
+    }
+
+}
+
+.img {
+    border-radius: 200px;
+    width: 300px;
+}
+
+.card {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    margin: auto;
+    color: rgb(255, 255, 255);
+    border-radius: 30 px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text {
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+    background: linear-gradient(180deg, rgb(247, 245, 255) 0%, rgb(163, 127, 163) 100%);
+    /*-webkit-background-clip: text;*/
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /*color: lightslategrey;*/
+}
+
+.squad {
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(51, 28, 54, 0.66) 36%, rgba(52, 37, 49, 0.51) 100%);
+    margin: auto;
+    padding: 30px;
+    text-align: center;
+}
+
+/* Bolinha */
+.cursor {
+    width: 10px;
+    height: 10px;
+    background: rgb(149, 229, 245);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition:
+        width 0.2s ease,
+        height 0.2s ease,
+        opacity 0.3s ease,
+        transform 0.2s ease;
+    z-index: 999;
+}
+
+/* Estado ativo (quando passa no título) */
+.cursor.active {
+    width: 40px;
+    height: 40px;
+    mix-blend-mode: difference;
+}
+
+/* Quando sai da página */
+.cursor.hidden {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+}
+
+/*body {
+  background: linear-gradient(to bottom, #000, #1a0033);
+  margin: 0;
+}*/
+
+
+
+
+
+
+
+
+
+/* Container central */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Círculo principal */
+.circle-wrapper {
+    position: relative;
+    width: 350px;
+    height: 350px;
+}
+
+/* Máscara circular */
+.circle-mask {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+/* Slider de imagens */
+.slider {
+    display: flex;
+    height: 100%;
+    animation: slide 20s infinite;
+}
+
+.slider img {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+/* Animação das fotos passando */
+@keyframes slide {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-100%); }
+    40%  { transform: translateX(-200%); }
+    60%  { transform: translateX(-300%); }
+    80%  { transform: translateX(-400%); }
+    100% { transform: translateX(0); }
+}
+
+/* Borda neon girando */
+.neon-border {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 370px;
+    height: 370px;
+    border-radius: 50%;
+    background: conic-gradient(
+            transparent,
+            #6dd6d6,
+            transparent,
+            #a40ea4,
+            transparent);
+    animation: rotate 20s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+    filter: blur(5px);
+}
+
+.circle-wrapper {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    min-width: 350px;
+        /* 👈 impede esmagamento */
+    }
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+    
+}
+
+/*g*/
