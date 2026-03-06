@@ -264,8 +264,31 @@ p {
     to {
         transform: rotate(360deg);
     }
+}
 
-    
+.carrossel{
+    overflow: hidden;
+    width:100%;
+    gap: 40px;
+    display: flex;
+}
+
+.slide{
+    min-width:300px;
+    height: 200px;
+    overflow:hidden;
+    transform: translateY(-40px);
+}
+
+.slide.baixo{
+    transform: translateY(40px);
+}
+
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius: 20px;
 }
 
 /*g*/
