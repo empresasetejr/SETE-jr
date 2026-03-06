@@ -74,4 +74,20 @@ function animate() {
 
 animate();
 
+const carrossel = document.querySelector(".carrossel")
+
+let scroll = 0
+
+function animar(){
+    scroll += 0.5
+    carrossel.scrollLeft = scroll
+
+    if(scroll >= carrossel.scrollWidth - carrossel.clientWidth){
+        scroll = 0
+    }
+
+    requestAnimationFrame(animar)
+}
+
+animar()
 
