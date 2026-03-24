@@ -3,8 +3,46 @@
 }
 
 body {
-    background: linear-gradient(180deg, rgb(0, 0, 0) 25%, rgb(34, 0, 64) 100%);
+    background-color: black;
+    /*background-size: cover;*/
+    /*background: linear-gradient(180deg, rgb(0, 0, 0) 25%, rgb(34, 0, 64) 100%);*/
     margin: 0
+}
+
+/* Seções normais (ficam por cima) */
+.content {
+  background: rgb(14, 14, 15);
+  padding: 80px 20px;
+  min-height: 100vh;
+}
+
+/* Seção com imagem de fundo */
+.hero,
+.parallax {
+  height: 100vh;
+
+  background-image: url(images/AdobeStock_1008056342.jpeg);
+
+  background-size: 100% auto;        /* mantém tamanho original */
+  background-repeat: repeat-y;    /* repete a imagem */
+  background-position: top left;
+
+  background-attachment: fixed; /* efeito de profundidade */
+}
+
+/* opcional: overlay */
+.hero::before,
+.parallax::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.hero h1,
+.parallax h2 {
+  position: relative;
+  z-index: 1;
 }
 
 .navbar {
@@ -15,6 +53,7 @@ body {
     border-bottom-color: rgba(178, 85, 215, 0.613);
     border-bottom-style: solid;
     border-bottom-width: 1px;
+    background-color: black;
 }
 
 .navbar img {
@@ -171,14 +210,6 @@ p {
   background: linear-gradient(to bottom, #000, #1a0033);
   margin: 0;
 }*/
-
-
-
-
-
-
-
-
 
 /* Container central */
 .hero {
