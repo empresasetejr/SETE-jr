@@ -1,65 +1,88 @@
+/* =======================================================
+   RESET E CONFIGURAÇÕES GERAIS
+======================================================= */
 * {
     box-sizing: border-box;
 }
 
 body {
+    margin: 0;
     background-color: black;
-    /*background-size: cover;*/
-    /*background: linear-gradient(180deg, rgb(0, 0, 0) 25%, rgb(34, 0, 64) 100%);*/
-    margin: 0
+    /* background-size: cover; */
+    /* background: linear-gradient(180deg, rgb(0, 0, 0) 25%, rgb(34, 0, 64) 100%); */
 }
 
-/* Seções normais (ficam por cima) */
+
+/* =======================================================
+   SEÇÕES PRINCIPAIS (CONTENT / PARALLAX)
+======================================================= */
+
+/* Seções normais (conteúdo acima do fundo) */
 .content {
-  background: rgb(14, 14, 15);
-  padding: 80px 20px;
-  min-height: 100vh;
+    background: rgb(14, 14, 15);
+    padding: 80px 20px;
+    min-height: 100vh;
 }
 
-/* Seção com imagem de fundo */
+/* Seções com efeito de fundo fixo */
 .hero,
 .parallax {
-  height: 100vh;
+    height: 100vh;
 
-  background-image: url(images/AdobeStock_1008056342.jpeg);
-
-  background-size: 100% auto;        /* mantém tamanho original */
-  background-repeat: repeat-y;    /* repete a imagem */
-  background-position: top left;
-
-  background-attachment: fixed; /* efeito de profundidade */
+    background-image: url(images/AdobeStock_1008056342.jpeg);
+    background-size: 100% auto;
+    /* ajusta à largura */
+    background-repeat: repeat-y;
+    /* repete verticalmente */
+    background-position: top left;
+    background-attachment: fixed;
+    /* efeito parallax */
 }
 
-/* opcional: overlay */
+/* Overlay escuro sobre o fundo */
 .hero::before,
 .parallax::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
 }
 
+/* Conteúdo acima do overlay */
 .hero h1,
 .parallax h2 {
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
 }
+
+/* Centralização da hero */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =======================================================
+   NAVBAR
+======================================================= */
 
 .navbar {
     display: flex;
     position: relative;
     justify-content: space-around;
     align-items: center;
-    border-bottom-color: rgba(178, 85, 215, 0.613);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+
     background-color: black;
+
+    border-bottom: 1px solid rgba(178, 85, 215, 0.613);
 }
 
 .navbar img {
     width: 230px;
 }
 
+/* Links */
 .navbar-links {
     height: 100%;
 }
@@ -76,8 +99,9 @@ body {
 
 .navbar-links li a {
     display: block;
-    text-decoration: none;
     padding: 1rem;
+
+    text-decoration: none;
     color: #9f97a1;
     font-weight: 500;
 }
@@ -86,25 +110,37 @@ body {
     background-color: #582fc938;
 }
 
+/* Botão hamburguer */
 .toggle-button {
     position: absolute;
     top: .75rem;
     right: 1rem;
+
     display: none;
     flex-direction: column;
     justify-content: space-between;
+
     width: 30px;
     height: 21px;
 }
 
 .toggle-button .bar {
-    height: 3px;
     width: 90%;
-    background: linear-gradient(162deg,rgb(124, 116, 129) 0%, rgba(59, 52, 69, 1) 100%);
+    height: 3px;
+
+    background: linear-gradient(162deg,
+            rgb(124, 116, 129) 0%,
+            rgba(59, 52, 69, 1) 100%);
     border-radius: 10px;
 }
 
+
+/* =======================================================
+   RESPONSIVIDADE
+======================================================= */
+
 @media (max-width: 800px) {
+
     .navbar {
         flex-direction: column;
         align-items: center;
@@ -120,8 +156,8 @@ body {
     }
 
     .navbar-links ul {
-        width: 100%;
         flex-direction: column;
+        width: 100%;
     }
 
     .navbar-links ul li {
@@ -135,12 +171,16 @@ body {
     .navbar-links.active {
         display: flex;
     }
-
 }
 
+
+/* =======================================================
+   COMPONENTES (CARDS / TEXTO / IMAGENS)
+======================================================= */
+
 .img {
-    border-radius: 200px;
     width: 300px;
+    border-radius: 200px;
 }
 
 .card {
@@ -148,10 +188,12 @@ body {
     gap: 40px;
     padding: 20px;
     margin: auto;
-    color: rgb(255, 255, 255);
-    border-radius: 30 px;
+
     align-items: center;
     justify-content: space-between;
+
+    color: white;
+    border-radius: 30 px;
 }
 
 .text {
@@ -159,105 +201,137 @@ body {
     color: white;
 }
 
+/* Texto com gradiente */
 p {
     text-align: justify;
-    background: linear-gradient(180deg, rgb(247, 245, 255) 0%, rgb(163, 127, 163) 100%);
-    /*-webkit-background-clip: text;*/
+
+    background: linear-gradient(180deg,
+            rgb(247, 245, 255) 0%,
+            rgb(163, 127, 163) 100%);
+
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    /*color: lightslategrey;*/
 }
 
+/* Container estilizado */
 .squad {
-    border-radius: 10px;
-    background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(51, 28, 54, 0.66) 36%, rgba(52, 37, 49, 0.51) 100%);
     margin: auto;
     padding: 30px;
+
     text-align: center;
+    border-radius: 10px;
+
+    background: linear-gradient(180deg,
+            rgb(0, 0, 0) 0%,
+            rgba(51, 28, 54, 0.66) 36%,
+            rgba(52, 37, 49, 0.51) 100%);
 }
+
+
+/* =======================================================
+   CURSOR CUSTOMIZADO
+======================================================= */
 
 /* Bolinha */
 .cursor {
+    position: fixed;
+    z-index: 999;
+    pointer-events: none;
+
     width: 10px;
     height: 10px;
-    background: rgb(149, 229, 245);
     border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
+
+    background: rgb(149, 229, 245);
+
     transform: translate(-50%, -50%);
+
     transition:
         width 0.2s ease,
         height 0.2s ease,
         opacity 0.3s ease,
         transform 0.2s ease;
-    z-index: 999;
 }
 
-/* Estado ativo (quando passa no título) */
+/* Ao passar em títulos */
 .cursor.active {
     width: 40px;
     height: 40px;
     mix-blend-mode: difference;
 }
 
-/* Quando sai da página */
+/* Quando sai da tela */
 .cursor.hidden {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.3);
 }
 
-/*body {
-  background: linear-gradient(to bottom, #000, #1a0033);
-  margin: 0;
-}*/
 
-/* Container central */
-.hero {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* =======================================================
+   SLIDER CIRCULAR (HERO)
+======================================================= */
 
-/* Círculo principal */
 .circle-wrapper {
     position: relative;
     width: 350px;
     height: 350px;
+    min-width: 350px;
+    /* impede esmagamento */
 }
 
 /* Máscara circular */
 .circle-mask {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+
     overflow: hidden;
+    border-radius: 50%;
+
     position: relative;
     z-index: 2;
 }
 
-/* Slider de imagens */
+/* Slider */
 .slider {
     display: flex;
     height: 100%;
+
     animation: slide 20s infinite;
 }
 
 .slider img {
     width: 100%;
     height: 100%;
-    flex-shrink: 0;
+
     object-fit: cover;
+    flex-shrink: 0;
 }
 
-/* Animação das fotos passando */
+/* Animação do slider */
 @keyframes slide {
-    0%   { transform: translateX(0); }
-    20%  { transform: translateX(-100%); }
-    40%  { transform: translateX(-200%); }
-    60%  { transform: translateX(-300%); }
-    80%  { transform: translateX(-400%); }
-    100% { transform: translateX(0); }
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-100%);
+    }
+
+    40% {
+        transform: translateX(-200%);
+    }
+
+    60% {
+        transform: translateX(-300%);
+    }
+
+    80% {
+        transform: translateX(-400%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 /* Borda neon girando */
@@ -265,29 +339,25 @@ p {
     position: absolute;
     top: -10px;
     left: -10px;
+
     width: 370px;
     height: 370px;
+
     border-radius: 50%;
-    background: conic-gradient(
-            transparent,
+    z-index: 1;
+    pointer-events: none;
+
+    background: conic-gradient(transparent,
             #6dd6d6,
             transparent,
             #a40ea4,
             transparent);
+
     animation: rotate 20s linear infinite;
-    z-index: 1;
-    pointer-events: none;
     filter: blur(5px);
 }
 
-.circle-wrapper {
-    position: relative;
-    width: 350px;
-    height: 350px;
-    min-width: 350px;
-        /* 👈 impede esmagamento */
-    }
-
+/* Rotação */
 @keyframes rotate {
     from {
         transform: rotate(0deg);
@@ -298,29 +368,36 @@ p {
     }
 }
 
-.carrossel{
-    overflow: hidden;
-    width:100%;
-    gap: 40px;
+
+/* =======================================================
+   CARROSSEL HORIZONTAL
+======================================================= */
+
+.carrossel {
     display: flex;
+    gap: 40px;
+
+    width: 100%;
+    overflow: hidden;
 }
 
-.slide{
-    min-width:300px;
+.slide {
+    min-width: 300px;
     height: 200px;
-    overflow:hidden;
+
+    overflow: hidden;
     transform: translateY(-40px);
 }
 
-.slide.baixo{
+/* variação */
+.slide.baixo {
     transform: translateY(40px);
 }
 
-.slide img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.slide img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
     border-radius: 20px;
 }
-
-/*g*/
