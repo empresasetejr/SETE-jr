@@ -30,22 +30,23 @@ body {
     height: 100vh;
 
     background-image: url(images/AdobeStock_1008056342.jpeg);
-    background-size: 100% auto;
+    background-size: cover;
     /* ajusta à largura */
-    background-repeat: repeat-y;
+    background-repeat: no-repeat;
     /* repete verticalmente */
     background-position: top left;
     background-attachment: fixed;
     /* efeito parallax */
+    position: relative;
 }
 
 /* Overlay escuro sobre o fundo */
-.hero::before,
-.parallax::before {
+.hero::before {
     content: "";
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
 }
 
 /* Conteúdo acima do overlay */
@@ -72,10 +73,9 @@ body {
     position: relative;
     justify-content: space-around;
     align-items: center;
-
     background-color: black;
-
     border-bottom: 1px solid rgba(178, 85, 215, 0.613);
+    z-index: 10;
 }
 
 .navbar img {
