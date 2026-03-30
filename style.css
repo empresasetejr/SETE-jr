@@ -7,7 +7,8 @@
 
 body {
     margin: 0;
-    background-color: black;
+    background-color: rgba(255, 63, 63, 0.678);
+     overflow-x: hidden;
     /* background-size: cover; */
     /* background: linear-gradient(180deg, rgb(0, 0, 0) 25%, rgb(34, 0, 64) 100%); */
 }
@@ -53,7 +54,7 @@ body {
 .hero h1{
     position: relative;
     z-index: 1;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .parallax h2 {
@@ -75,12 +76,16 @@ body {
 
 .navbar {
     display: flex;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     justify-content: space-around;
     align-items: center;
     background-color: black;
     border-bottom: 1px solid rgba(178, 85, 215, 0.613);
-    z-index: 10;
+    z-index: 1000;
+    transition: top 0.3s ease;
 }
 
 .navbar img {
@@ -182,12 +187,13 @@ body {
 /* =======================================================
    COMPONENTES (CARDS / TEXTO / IMAGENS)
 ======================================================= */
+
 /* Container da faixa */
 .faixa {
   width: 100%;            /* ocupa toda a largura da tela */
   overflow: hidden;       /* esconde o que sai da tela (ESSENCIAL pro efeito) */
-  background: black;      /* cor de fundo */
-  color: white;           /* cor do texto */
+  background: #5d00ff;     /* cor de fundo */
+  color: rgb(255, 255, 255);           /* cor do texto */
   padding: 10px 0;        /* espaço em cima e embaixo */
 }
 
@@ -232,6 +238,10 @@ body {
 }
 
 .card {
+    background: rgba(5, 0, 10, 0.8);
+
+    backdrop-filter: blur(2px); /* controla o desfoque */
+
     display: flex;
     gap: 40px;
     padding: 20px;
@@ -240,7 +250,7 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    color: white;
+    color: rgb(255, 255, 255);
     border-radius: 30 px;
 }
 
@@ -263,6 +273,7 @@ p {
 
 /* Container estilizado */
 .squad {
+
     margin: auto;
     padding: 30px;
 
@@ -343,7 +354,6 @@ p {
 .slider {
     display: flex;
     height: 100%;
-
     animation: slide 20s infinite;
 }
 

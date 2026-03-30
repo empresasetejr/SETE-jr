@@ -92,3 +92,19 @@ function animar(){
 
 animar()
 
+let lastScroll = 0;
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll) {
+    // Descendo → esconde
+    navbar.style.top = "-100px"; // ajuste conforme altura do seu navbar
+  } else {
+    // Subindo → mostra
+    navbar.style.top = "0";
+  }
+
+  lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+});
