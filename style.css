@@ -16,7 +16,35 @@ body {
 /* =======================================================
    SEÇÕES PRINCIPAIS (CONTENT / PARALLAX)
 ======================================================= */
+.faixa {
+  width: 100%;
+  overflow: hidden;
+  background: #5d00ff;
+  color: white;
+  padding: 10px 0;
+}
 
+.faixa-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 15s linear infinite;
+}
+
+.faixa span {
+  font-size: 20px;
+  white-space: nowrap;
+  margin-right: 40px;
+}
+
+/* animação */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
 /* Seções normais (conteúdo acima do fundo) */
 .content {
     background: rgb(14, 14, 15);
@@ -27,7 +55,7 @@ body {
 /* Seções com efeito de fundo fixo */
 .hero,
 .parallax {
-    height: 100vh;
+    height: 50vh;
 
     background-image: url(images/AdobeStock_1008056342.jpeg);
     background-size: cover;
@@ -50,7 +78,12 @@ body {
 }
 
 /* Conteúdo acima do overlay */
-.hero h1,
+.hero h1{
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
 .parallax h2 {
     position: relative;
     z-index: 1;
