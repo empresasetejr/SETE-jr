@@ -182,50 +182,49 @@ body {
 /* =======================================================
    COMPONENTES (CARDS / TEXTO / IMAGENS)
 ======================================================= */
-
 /* Container da faixa */
 .faixa {
-  width: 100%;
-  overflow: hidden;       
-  /* esconde o que sai da tela (ESSENCIAL pro efeito) */
-  background: black
-  color: white;
-  padding: 10px 0;
+  width: 100%;            /* ocupa toda a largura da tela */
+  overflow: hidden;       /* esconde o que sai da tela (ESSENCIAL pro efeito) */
+  background: black;      /* cor de fundo */
+  color: white;           /* cor do texto */
+  padding: 10px 0;        /* espaço em cima e embaixo */
 }
 
 /* Trilho que se move */
 .faixa-track {
-  display: flex;                 
-  width: max-content;             
-  /* largura baseada no conteúdo (não quebra linha) */
+  display: flex;                  /* coloca os spans lado a lado */
+  width: max-content;             /* largura baseada no conteúdo (não quebra linha) */
   animation: scroll 15s linear infinite; 
-  /* animação contínua
+  /* animação contínua:
+     - 15s = duração
+     - linear = velocidade constante
+     - infinite = loop infinito */
 }
 
 /* Texto */
 .faixa span {
-  font-size: 20px;
-  white-space: nowrap;    
-  /* impede quebra de linha */
-  margin-right: 40px;     
-  /* espaço entre repetições */
-  letter-spacing: 2px;    
-  /* espaço entre letras (estilo moderno) */
-  text-transform: uppercase; 
-  /* deixa tudo em maiúsculo */
+  font-size: 20px;        /* tamanho do texto */
+  white-space: nowrap;    /* impede quebra de linha */
+  margin-right: 40px;     /* espaço entre repetições */
+  letter-spacing: 2px;    /* espaço entre letras (estilo moderno) */
+  text-transform: uppercase; /* deixa tudo em maiúsculo */
 }
 
 /* Animação */
 @keyframes scroll {
 
   from {
-    transform: translateX(0); /* começa na posição original */
+    transform: translateX(0); 
+    /* começa na posição original */
   }
 
   to {
-    transform: translateX(-50%);/* move metade da largura total
-    (como temos 2 textos iguais, isso cria loop perfeito) */
+    transform: translateX(-50%);
+    /* move metade da largura total
+       (como temos 2 textos iguais, isso cria loop perfeito) */
   }
+}
 
 .img {
     width: 300px;
