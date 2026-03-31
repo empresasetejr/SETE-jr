@@ -5,12 +5,20 @@
     box-sizing: border-box;
 }
 
+html, body{
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 body {
     margin: 0;
     background-color: rgba(255, 63, 63, 0.678);
-     overflow-x: hidden;
-    /* background-size: cover; */
-    /* background: linear-gradient(180deg, rgb(0, 0, 0) 25%, rgb(34, 0, 64) 100%); */
+}
+
+/* Responsividade imagens */
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 
@@ -18,30 +26,23 @@ body {
    SEÇÕES PRINCIPAIS (CONTENT / PARALLAX)
 ======================================================= */
 
-/* Seções normais (conteúdo acima do fundo) */
 .content {
     background: rgb(14, 14, 15);
     padding: 80px 20px;
     min-height: 100vh;
 }
 
-/* Seções com efeito de fundo fixo */
 .hero,
 .parallax {
     height: 50vh;
-
     background-image: url(images/AdobeStock_1008056342.jpeg);
     background-size: cover;
-    /* ajusta à largura */
     background-repeat: no-repeat;
-    /* repete verticalmente */
     background-position: top left;
     background-attachment: fixed;
-    /* efeito parallax */
     position: relative;
 }
 
-/* Overlay escuro sobre o fundo */
 .hero::before {
     content: "";
     position: absolute;
@@ -50,8 +51,7 @@ body {
     z-index: 0;
 }
 
-/* Conteúdo acima do overlay */
-.hero h1{
+.hero h1 {
     position: relative;
     z-index: 1;
     color: rgb(255, 255, 255);
@@ -62,7 +62,6 @@ body {
     z-index: 1;
 }
 
-/* Centralização da hero */
 .hero {
     display: flex;
     justify-content: center;
@@ -92,7 +91,6 @@ body {
     width: 230px;
 }
 
-/* Links */
 .navbar-links {
     height: 100%;
 }
@@ -110,7 +108,6 @@ body {
 .navbar-links li a {
     display: block;
     padding: 1rem;
-
     text-decoration: none;
     color: #9f97a1;
     font-weight: 500;
@@ -120,16 +117,13 @@ body {
     background-color: #582fc938;
 }
 
-/* Botão hamburguer */
 .toggle-button {
     position: absolute;
     top: .75rem;
     right: 1rem;
-
     display: none;
     flex-direction: column;
     justify-content: space-between;
-
     width: 30px;
     height: 21px;
 }
@@ -137,7 +131,6 @@ body {
 .toggle-button .bar {
     width: 90%;
     height: 3px;
-
     background: linear-gradient(162deg,
             rgb(124, 116, 129) 0%,
             rgba(59, 52, 69, 1) 100%);
@@ -181,6 +174,33 @@ body {
     .navbar-links.active {
         display: flex;
     }
+
+    /* Cards mobile */
+    .card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    /* Parallax fix mobile */
+    .hero,
+    .parallax {
+        background-attachment: scroll;
+    }
+
+    /* Slider circular mobile */
+    .circle-wrapper {
+        width: 100%;
+        max-width: 300px;
+        aspect-ratio: 1/1;
+        height: auto;
+        min-width: auto;
+    }
+
+    /* Carrossel mobile */
+    .slide {
+        min-width: 200px;
+    }
 }
 
 
@@ -188,47 +208,60 @@ body {
    COMPONENTES (CARDS / TEXTO / IMAGENS)
 ======================================================= */
 
-/* Container da faixa */
+.contato {
+    background: rgb(10,10,15);
+    text-align: center;
+    padding: 60px 20px;
+    color: white;
+}
+
+.contato-icons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.contato-icons img {
+    width: 50px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.contato-icons img:hover {
+    transform: scale(1.2);
+}
+
 .faixa {
-  width: 100%;            /* ocupa toda a largura da tela */
-  overflow: hidden;       /* esconde o que sai da tela (ESSENCIAL pro efeito) */
-  background: #5d00ff;     /* cor de fundo */
-  color: rgb(255, 255, 255);           /* cor do texto */
-  padding: 10px 0;        /* espaço em cima e embaixo */
+  width: 100%;
+  overflow: hidden;
+  background: #5d00ff;
+  color: rgb(255, 255, 255);
+  padding: 10px 0;
 }
 
-/* Trilho que se move */
 .faixa-track {
-  display: flex;                  /* coloca os spans lado a lado */
-  width: max-content;             /* largura baseada no conteúdo (não quebra linha) */
-  animation: scroll 15s linear infinite; 
-  /* animação contínua:
-     - 15s = duração
-     - linear = velocidade constante
-     - infinite = loop infinito */
+  display: flex;
+  width: max-content;
+  animation: scroll 15s linear infinite;
 }
 
-/* Texto */
 .faixa span {
-  font-size: 20px;        /* tamanho do texto */
-  white-space: nowrap;    /* impede quebra de linha */
-  margin-right: 40px;     /* espaço entre repetições */
-  letter-spacing: 2px;    /* espaço entre letras (estilo moderno) */
-  text-transform: uppercase; /* deixa tudo em maiúsculo */
+  font-size: 20px;
+  white-space: nowrap;
+  margin-right: 40px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-/* Animação */
 @keyframes scroll {
 
   from {
-    transform: translateX(0); 
-    /* começa na posição original */
+    transform: translateX(0);
   }
 
   to {
     transform: translateX(-50%);
-    /* move metade da largura total
-       (como temos 2 textos iguais, isso cria loop perfeito) */
   }
 }
 
@@ -239,8 +272,7 @@ body {
 
 .card {
     background: rgba(5, 0, 10, 0.8);
-
-    backdrop-filter: blur(2px); /* controla o desfoque */
+    backdrop-filter: blur(2px);
 
     display: flex;
     gap: 40px;
@@ -251,7 +283,7 @@ body {
     justify-content: space-between;
 
     color: rgb(255, 255, 255);
-    border-radius: 30 px;
+    
 }
 
 .text {
@@ -259,7 +291,6 @@ body {
     color: white;
 }
 
-/* Texto com gradiente */
 p {
     text-align: justify;
 
@@ -271,7 +302,6 @@ p {
     -webkit-text-fill-color: transparent;
 }
 
-/* Container estilizado */
 .squad {
 
     margin: auto;
@@ -291,7 +321,6 @@ p {
    CURSOR CUSTOMIZADO
 ======================================================= */
 
-/* Bolinha */
 .cursor {
     position: fixed;
     z-index: 999;
@@ -312,14 +341,12 @@ p {
         transform 0.2s ease;
 }
 
-/* Ao passar em títulos */
 .cursor.active {
     width: 40px;
     height: 40px;
     mix-blend-mode: difference;
 }
 
-/* Quando sai da tela */
 .cursor.hidden {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.3);
@@ -335,22 +362,17 @@ p {
     width: 350px;
     height: 350px;
     min-width: 350px;
-    /* impede esmagamento */
 }
 
-/* Máscara circular */
 .circle-mask {
     width: 100%;
     height: 100%;
-
     overflow: hidden;
     border-radius: 50%;
-
     position: relative;
     z-index: 2;
 }
 
-/* Slider */
 .slider {
     display: flex;
     height: 100%;
@@ -360,46 +382,26 @@ p {
 .slider img {
     width: 100%;
     height: 100%;
-
     object-fit: cover;
     flex-shrink: 0;
 }
 
-/* Animação do slider */
 @keyframes slide {
-    0% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-100%);
-    }
-
-    40% {
-        transform: translateX(-200%);
-    }
-
-    60% {
-        transform: translateX(-300%);
-    }
-
-    80% {
-        transform: translateX(-400%);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-100%); }
+    40% { transform: translateX(-200%); }
+    60% { transform: translateX(-300%); }
+    80% { transform: translateX(-400%); }
+    100% { transform: translateX(0); }
 }
 
-/* Borda neon girando */
 .neon-border {
     position: absolute;
     top: -10px;
     left: -10px;
 
-    width: 370px;
-    height: 370px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
 
     border-radius: 50%;
     z-index: 1;
@@ -415,15 +417,9 @@ p {
     filter: blur(5px);
 }
 
-/* Rotação */
 @keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 
@@ -434,20 +430,18 @@ p {
 .carrossel {
     display: flex;
     gap: 40px;
-
     width: 100%;
     overflow: hidden;
 }
 
 .slide {
-    min-width: 300px;
+    min-width: 250px;
     height: 200px;
 
     overflow: hidden;
     transform: translateY(-40px);
 }
 
-/* variação */
 .slide.baixo {
     transform: translateY(40px);
 }
