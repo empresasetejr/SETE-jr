@@ -1,4 +1,29 @@
 /* =======================================================
+    VARIÁVEIS 
+======================================================= */
+:root {
+    --black: #000000;
+    --bg-secondary: #0e0e0f;
+    --bg-card: #141418;
+
+    --primary: #7c3aed;
+    --primary-neon: #a855f7;
+    --primary-dark: #4c1d95;
+
+    --secondary: #22d3ee;
+    --secondary-soft: #67e8f9;
+
+    --text-main: #f8fafc;
+    --text-light: #cbd5f5;
+    --text-muted: #9f97a1;
+    --text-dark: #6b7280;
+
+    --overlay: rgba(0, 0, 0, 0.5);
+    --glass: rgba(0, 0, 0, 0.4);
+    --border-neon: rgba(168, 85, 247, 0.6);
+}
+
+/* =======================================================
    RESET E CONFIGURAÇÕES GERAIS
 ======================================================= */
 * {
@@ -12,7 +37,7 @@ html, body{
 
 body {
     margin: 0;
-    background-color: rgba(255, 63, 63, 0.678);
+    background-color: rgb(0, 0, 0);
 }
 
 /* Responsividade imagens */
@@ -32,8 +57,7 @@ img {
     min-height: 100vh;
 }
 
-.hero,
-.parallax {
+.hero {
     height: 50vh;
     background-image: url(images/AdobeStock_1008056342.jpeg);
     background-size: cover;
@@ -55,11 +79,6 @@ img {
     position: relative;
     z-index: 1;
     color: rgb(255, 255, 255);
-}
-
-.parallax h2 {
-    position: relative;
-    z-index: 1;
 }
 
 .hero {
@@ -176,15 +195,16 @@ img {
     }
 
     /* Cards mobile */
-    .card {
+    .card, 
+    .cardhome {
         flex-direction: column;
         text-align: center;
         gap: 20px;
     }
 
-    /* Parallax fix mobile */
+    /* Servicos e Hero fix mobile */
     .hero,
-    .parallax {
+    .servicos {
         background-attachment: scroll;
     }
 
@@ -208,34 +228,10 @@ img {
    COMPONENTES (CARDS / TEXTO / IMAGENS)
 ======================================================= */
 
-.contato {
-    background: rgb(10,10,15);
-    text-align: center;
-    padding: 60px 20px;
-    color: white;
-}
-
-.contato-icons {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 20px;
-}
-
-.contato-icons img {
-    width: 50px;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.contato-icons img:hover {
-    transform: scale(1.2);
-}
-
 .faixa {
   width: 100%;
   overflow: hidden;
-  background: #5d00ff;
+  background-color: #0f172a;
   color: rgb(255, 255, 255);
   padding: 10px 0;
 }
@@ -269,21 +265,26 @@ img {
     width: 300px;
     border-radius: 200px;
 }
-
-.card {
+.cardhome {
     background: rgba(5, 0, 10, 0.8);
     backdrop-filter: blur(2px);
-
     display: flex;
     gap: 40px;
     padding: 20px;
     margin: auto;
-
     align-items: center;
     justify-content: space-between;
-
     color: rgb(255, 255, 255);
-    
+}
+
+.card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 30px;
+    padding: 60px 20px;
+
+    background: transparent;
 }
 
 .text {
@@ -303,19 +304,155 @@ p {
 }
 
 .squad {
+    padding: 25px;
+    border-radius: 20px;
 
-    margin: auto;
-    padding: 30px;
+    background: rgba(10, 0, 20, 0.6);
+    backdrop-filter: blur(6px);
 
     text-align: center;
-    border-radius: 10px;
 
-    background: linear-gradient(180deg,
-            rgb(0, 0, 0) 0%,
-            rgba(51, 28, 54, 0.66) 36%,
-            rgba(52, 37, 49, 0.51) 100%);
+    transition: 0.3s;
+    border: 1px solid transparent;
+
+    position: relative;
+    overflow: hidden;
+}
+.squad h1 {
+    color: var(--primary-neon);
+    margin-bottom: 10px;
+}
+.squad:hover {
+    transform: translateY(-10px) scale(1.03);
+    border: 1px solid var(--primary-neon);
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+}
+.squad p {
+    font-size: 0.9rem;
+    text-align: center;
+}
+.squad::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(168, 85, 247, 0.2),
+        transparent
+    );
+
+    opacity: 0;
+    transition: 0.3s;
 }
 
+.squad:hover::before {
+    opacity: 1;
+}
+/* =======================================================
+   SERVIÇOS
+======================================================= */
+
+.servicos {
+    padding: 80px 20px;
+    background: var(--bg-secondary);
+    text-align: center;
+    background-image: url(images/AdobeStock_1008056342.jpeg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    position: relative;
+}
+
+.servicos h1 {
+    color: var(--text-main);
+}
+
+.sub {
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+/* GRID */
+.servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+/* CARD */
+.servico-card {
+    background: rgba(10, 0, 20, 0.6);
+    backdrop-filter: blur(6px);
+
+    border-radius: 20px;
+    padding: 25px;
+
+    transition: 0.3s;
+    border: 1px solid transparent;
+
+    text-align: center;
+}
+
+/* Ícone */
+.servico-card lord-icon {
+    margin-bottom: 10px;
+    background: rgba(10, 0, 20, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+/* Título */
+.servico-card h2 {
+    margin: 10px 0;
+    color: var(--primary-neon);
+}
+
+/* Texto */
+.servico-card p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* Lista */
+.servico-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.servico-card ul li {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin: 5px 0;
+}
+
+/* HOVER (efeito neon) */
+.servico-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    border: 1px solid var(--primary-neon);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+}
+.servicos::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.8),
+        rgba(0,0,0,0.6),
+        rgba(124, 58, 237, 0.3)
+    );
+
+    z-index: 0;
+}
+.servicos h1,
+.servicos p,
+.servicos .servicos-grid {
+    position: relative;
+    z-index: 1;
+}
 
 /* =======================================================
    CURSOR CUSTOMIZADO
@@ -427,29 +564,341 @@ p {
    CARROSSEL HORIZONTAL
 ======================================================= */
 
+/* Container Principal */
+/* Container do Carrossel */
 .carrossel {
     display: flex;
-    gap: 40px;
-    width: 100%;
+    gap: 30px;
+    padding: 80px 40px; /* Aumentamos o respiro para o movimento */
     overflow: hidden;
+    background-color: transparent; /* Deixa o fundo do site aparecer */
+    align-items: center;
 }
 
+/* Cada Slide */
 .slide {
-    min-width: 250px;
+    min-width: 300px;
     height: 200px;
-
+    border-radius: 20px;
     overflow: hidden;
-    transform: translateY(-40px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    border: 2px solid rgba(168, 85, 247, 0.3); /* Borda roxa sutil */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    cursor: pointer;
 }
 
-.slide.baixo {
-    transform: translateY(40px);
-}
-
+/* Imagem */
 .slide img {
     width: 100%;
     height: 100%;
-
     object-fit: cover;
+    filter: brightness(0.8); /* Fica um pouco escura para destacar o hover */
+    transition: 0.5s;
+}
+
+/* Movimento Zig-Zag */
+.slide:nth-child(odd) { transform: translateY(-20px); }
+.slide.baixo { transform: translateY(20px); }
+
+/* HOVER: Apenas na Imagem/Slide */
+.slide:hover {
+    transform: scale(1.1) translateY(0) !important;
+    z-index: 10;
+    border-color: #a855f7; /* Roxo vibrante */
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.6); /* Glow Roxo */
+}
+
+.slide:hover img {
+    filter: brightness(1.1);
+}
+/* =======================================================
+   BENTO GRID (QUEM SOMOS)
+======================================================= */
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.bento-item {
+    background: rgba(20, 20, 25, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 24px;
+    padding: 30px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bento-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-neon);
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+    background: rgba(25, 25, 35, 0.9);
+}
+
+/* Ajustes de Posicionamento */
+.main-about { grid-column: span 2; grid-row: span 2; min-height: 300px; }
+.mission { grid-column: span 2; }
+.vision { grid-column: span 1; }
+.values { grid-column: span 1; }
+
+/* Estilização Interna */
+.bento-item h3 { color: var(--secondary); margin-bottom: 10px; }
+.bento-item h2 { color: var(--primary-neon); font-size: 2rem; }
+
+.bento-badge {
+    background: var(--primary-dark);
+    color: var(--text-main);
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    width: fit-content;
+    margin-top: 20px;
+}
+
+.values-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.values-tags span {
+    font-size: 0.75rem;
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--text-light);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.team-section {
+    margin-top: auto; /* Joga para o final do card */
+    padding-top: 20px;
+}
+
+.team-avatars {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    margin-left: -12px; /* Faz as fotos se sobreporem */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.avatar-wrapper:first-child { margin-left: 0; }
+
+.avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--bg-card);
+    object-fit: cover;
+}
+
+.avatar-wrapper:hover {
+    transform: translateY(-5px);
+    z-index: 10;
+}
+
+/* Tooltip com o nome da pessoa */
+.tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.avatar-wrapper:hover .tooltip {
+    opacity: 1;
+    bottom: 110%;
+}
+
+.avatar-wrapper.plus {
+    background: var(--primary-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid var(--bg-card);
+}
+
+.team-desc {
+    font-size: 0.75rem !important;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Responsividade Bento */
+@media (max-width: 900px) {
+    .bento-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .main-about, .mission, .vision, .values {
+        grid-column: span 2;
+    }
+}
+/* =======================================================
+   ESTILO DO MODAL (POPUP)
+======================================================= */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000; /* Acima de tudo, inclusive da navbar */
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: rgba(20, 20, 25, 0.95);
+    border: 1px solid var(--primary-neon);
+    width: 90%;
+    max-width: 500px;
     border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 0 40px rgba(124, 58, 237, 0.3);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: var(--text-muted);
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-modal:hover { color: var(--secondary); }
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+#modal-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-neon);
+    object-fit: cover;
+}
+
+.modal-text h2 { color: var(--primary-neon); margin: 0; }
+.modal-text h4 { color: var(--secondary); margin: 5px 0 15px; }
+.modal-text p { color: var(--text-light); text-align: center; }
+
+/* =======================================================
+   ESTILO FOOTER (RODAPÉ) TECH
+======================================================= */
+
+.main-footer {
+    background: rgba(15, 23, 42, 0.9); /* Azul marinho profundo semi-transparente */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(168, 85, 247, 0.2);
+    padding: 60px 20px 20px;
+    margin-top: 50px; /* Dá um espaço do resto do site */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Ajusta para mobile */
+    gap: 30px;
+}
+
+.footer-brand .footer-logo {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg, #fff, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-brand p {
+    color: #B2BAB2;
+    font-size: 0.9rem;
+}
+
+.footer-label {
+    display: block;
+    color: #fff;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.contato-icons {
+    display: flex;
+    gap: 25px;
+}
+
+.icon-link {
+    transition: transform 0.3s ease;
+}
+
+.icon-link:hover {
+    transform: translateY(-5px) scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(178, 186, 178, 0.6);
+    font-size: 0.8rem;
+}
+
+/* Responsividade: No celular, os itens ficam um embaixo do outro */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-brand {
+        margin-bottom: 10px;
+    }
 }

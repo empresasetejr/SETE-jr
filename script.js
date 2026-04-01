@@ -27,7 +27,7 @@ titles.forEach(title => {
 });*/
 
 const cursor = document.querySelector(".cursor");
-const titles = document.querySelectorAll("h1");
+const titles = document.querySelectorAll("h1, lord-icon");
 
 let mouseX = 0;
 let mouseY = 0;
@@ -75,22 +75,42 @@ function animate() {
 
 animate();
 
-const carrossel = document.querySelector(".carrossel")
+const carrossel = document.querySelector(".carrossel");
+const slides = document.querySelectorAll(".slide"); // Seleciona cada imagem/quadrado
+let scrollPos = 0;
+let speed = 0.8; 
+let isPaused = false; // Controle de pausa
 
-let scroll = 0
-
-function animar(){
-    scroll += 0.5
-    carrossel.scrollLeft = scroll
-
-    if(scroll >= carrossel.scrollWidth - carrossel.clientWidth){
-        scroll = 0
+function moveCarrossel() {
+    if (!carrossel || isPaused) {
+        // Se estiver pausado, continua chamando o loop mas não move o scroll
+        requestAnimationFrame(moveCarrossel);
+        return;
     }
 
-    requestAnimationFrame(animar)
+    scrollPos += speed;
+    carrossel.scrollLeft = scrollPos;
+
+    if (scrollPos >= (carrossel.scrollWidth - carrossel.clientWidth)) {
+        scrollPos = 0;
+    }
+
+    requestAnimationFrame(moveCarrossel);
 }
 
-animar()
+// Configura cada slide para pausar a animação ao entrar com o mouse
+slides.forEach(slide => {
+    slide.addEventListener("mouseenter", () => {
+        isPaused = true;
+    });
+    slide.addEventListener("mouseleave", () => {
+        isPaused = false;
+    });
+});
+
+window.addEventListener("load", () => {
+    moveCarrossel();
+});
 
 let lastScroll = 0;
 const navbar = document.querySelector(".navbar");
@@ -107,4 +127,54 @@ window.addEventListener("scroll", () => {
   }
 
   lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+});
+// Efeito de Reveal ao Scroll
+const observers = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.bento-item').forEach(item => {
+    item.style.opacity = "0";
+    item.style.transform = "translateY(30px)";
+    item.style.transition = "all 0.6s ease-out";
+    observers.observe(item);
+});
+// Garante que o modal seja capturado corretamente
+const modalTeam = document.getElementById("team-modal");
+
+function openTeamModal(element) {
+    // 1. Pegar os dados da div clicada
+    const name = element.getAttribute("data-name");
+    const role = element.getAttribute("data-role");
+    const bio = element.getAttribute("data-bio");
+    const imgSrc = element.querySelector("img").src;
+
+    // 2. Injetar no Modal
+    document.getElementById("modal-name").innerText = name;
+    document.getElementById("modal-role").innerText = role;
+    document.getElementById("modal-bio").innerText = bio;
+    document.getElementById("modal-img").src = imgSrc;
+
+    // 3. Exibir
+    modalTeam.style.display = "flex";
+}
+
+// Fechar o modal
+const btnClose = document.querySelector(".close-modal");
+if(btnClose) {
+    btnClose.onclick = () => {
+        modalTeam.style.display = "none";
+    };
+}
+
+// Fechar ao clicar fora
+window.addEventListener("click", (event) => {
+    if (event.target == modalTeam) {
+        modalTeam.style.display = "none";
+    }
 });
