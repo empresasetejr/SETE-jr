@@ -21,7 +21,9 @@ if ($message === '') {
 }
 
 try {
-    if ($conversationId <= 0 || !getOpenConversation($conversationId)) {
+    $openConversation = $conversationId > 0 ? getOpenConversation($conversationId) : null;
+
+    if (!$openConversation || ($openConversation['chatbot_type'] ?? '') !== $mode) {
         $conversationId = createConversation($visitorName, $visitorPhone, $visitorEmail, $mode);
     }
 
@@ -56,41 +58,36 @@ try {
 function getManualResponse(string $message, array $companyProfile): string
 {
     $normalized = strtolower(trim($message));
+
+    $menuOptionResponse = getSeteJrMenuOptionResponse($normalized);
+    if ($menuOptionResponse !== null) {
+        return $menuOptionResponse;
+    }
+
     $optionResponse = getManualOptionResponse($normalized);
 
     if ($optionResponse !== null) {
         return $optionResponse;
     }
 
-    if (in_array($normalized, ['5', 'menu', 'opcoes', 'opções'], true)) {
+    if (in_array($normalized, ['menu', 'opcoes', 'opções', 'ajuda'], true)) {
         return buildManualMenu();
     }
 
-    if (containsAny($normalized, ['preco', 'preço', 'precificacao', 'precificação', 'valor', 'margem'])) {
-        $p = $companyProfile['precificacao'] ?? [];
-        return "Podemos ajudar com precificação analisando custos, margem e posicionamento.\n"
-            . "Como funciona: " . ($p['analise_custos'] ?? 'levantamos os principais custos do negócio') . "\n"
-            . "Entrega possível: " . ($p['entregavel'] ?? 'orientação e planilha simples') . "\n"
-            . "Digite 4 para falar com a equipe.";
+    if (containsAny($normalized, ['financa', 'finança', 'financeiro', 'financeira', 'gasto', 'gastos', 'mei', 'preco', 'preço', 'valor', 'margem'])) {
+        return "A SETE Jr ajuda com planejamento financeiro, controle de gastos e consultoria para MEI.\nConte qual é a principal dúvida financeira do seu negócio.";
     }
 
     if (containsAny($normalized, ['site', 'landing page', 'pagina', 'página', 'sistema', 'tecnologia', 'automacao', 'automação'])) {
-        $t = $companyProfile['tecnologia'] ?? [];
-        return "Na área de tecnologia, a Sete Jr pode apoiar com:\n"
-            . "- " . ($t['sites'] ?? 'sites institucionais e landing pages') . "\n"
-            . "- " . ($t['sistemas'] ?? 'sistemas simples') . "\n"
-            . "- " . ($t['automacao'] ?? 'automação de processos') . "\n"
-            . "Digite 4 para iniciar um atendimento.";
+        return "Na área de tecnologia, fazemos sites profissionais, sistemas simples e automação de processos.\nConte qual solução digital você precisa.";
     }
 
-    if (containsAny($normalized, ['rede social', 'redes sociais', 'instagram', 'marketing', 'conteudo', 'conteúdo'])) {
-        $r = $companyProfile['redes_sociais'] ?? [];
-        return "Podemos ajudar seu negócio nas redes sociais com diagnóstico, organização de perfil e ideias de conteúdo.\n"
-            . ($r['apoio'] ?? 'Apoio em calendário de conteúdo, bio, destaques e chamadas para contato.');
+    if (containsAny($normalized, ['empreendedorismo', 'empreender', 'empresa', 'abrir empresa', 'abertura', 'modelo de negocio', 'modelo de negócio', 'estrategia', 'estratégia', 'ideia'])) {
+        return "Apoiamos empreendedorismo com abertura de empresas, modelagem de negócio e estratégia inicial.\nConte em que fase está sua ideia ou empresa.";
     }
 
     if (containsAny($normalized, ['servico', 'serviço', 'servicos', 'serviços', 'fazem', 'oferecem'])) {
-        return "A Sete Jr oferece:\n- " . implode("\n- ", $companyProfile['servicos'] ?? []);
+        return buildManualMenu();
     }
 
     if (containsAny($normalized, ['horario', 'horário', 'funcionamento'])) {
@@ -102,26 +99,35 @@ function getManualResponse(string $message, array $companyProfile): string
     }
 
     if (containsAny($normalized, ['contato', 'whatsapp', 'telefone', 'email', 'e-mail', 'atendente'])) {
-        return "Contatos da Sete Jr:\n"
-            . "- WhatsApp: " . ($companyProfile['whatsapp'] ?? '-') . "\n"
-            . "- E-mail: " . ($companyProfile['email'] ?? '-') . "\n"
-            . "- Instagram: " . ($companyProfile['instagram'] ?? '-');
+        return "Para falar com a equipe:\nWhatsApp: " . ($companyProfile['whatsapp'] ?? '-')
+            . "\nInstagram: " . ($companyProfile['instagram'] ?? '-');
     }
 
     if (containsAny($normalized, ['localizacao', 'localização', 'endereco', 'endereço', 'onde'])) {
         return "Endereço/base de atendimento: " . ($companyProfile['endereco'] ?? 'UNIAENE') . ".";
     }
 
-    return "Posso te ajudar com:\n" . buildManualMenu();
+    return "Não entendi bem. Escolha uma opção:\n" . buildManualMenu();
 }
 
 function buildManualMenu(): string
 {
-    return "1 - Desenvolvimento de sites e tecnologia\n"
-        . "2 - Precificação e finanças\n"
-        . "3 - Redes sociais e presença digital\n"
-        . "4 - Falar com a equipe\n"
-        . "5 - Ver este menu novamente";
+    return "1 - Tecnologia\n"
+        . "2 - Finanças\n"
+        . "3 - Empreendedorismo\n"
+        . "4 - Falar com a equipe";
+}
+
+function getSeteJrMenuOptionResponse(string $option): ?string
+{
+    $responses = [
+        '1' => "Tecnologia:\nA Sete Jr desenvolve sites profissionais, landing pages, sistemas simples e automações para organizar processos.\nConte que tipo de solução digital você precisa.",
+        '2' => "Finanças:\nA Sete Jr ajuda com planejamento financeiro, controle de gastos, organização de custos e orientação para MEI.\nQual é a principal dúvida financeira do seu negócio?",
+        '3' => "Empreendedorismo:\nA Sete Jr apoia abertura de empresas, modelagem de negócio, validação de ideias e estratégia inicial.\nEm que fase está sua ideia ou empresa?",
+        '4' => "Falar com a equipe:\nPerfeito. Envie seu nome, telefone e um resumo do que você precisa para a equipe da Sete Jr retornar o contato.",
+    ];
+
+    return $responses[$option] ?? null;
 }
 
 function containsAny(string $haystack, array $keywords): bool
@@ -144,7 +150,7 @@ function getAiResponse(string $userMessage, array $openRouter, array $companyPro
     $systemPrompt = "Você é atendente virtual da {$companyProfile['nome']}. "
         . "Responda em português do Brasil, com tom cordial, direto e comercial. "
         . "Use apenas as informações oficiais abaixo sobre a empresa. "
-        . "Ajude visitantes interessados em precificação, desenvolvimento de sites, redes sociais, tecnologia, sistemas simples e soluções para pequenos e grandes negócios. "
+        . "Ajude visitantes interessados em tecnologia, sites, sistemas simples, automação, finanças, consultoria para MEI, abertura de empresas, modelagem de negócio e estratégia inicial. "
         . "Se faltarem informações, peça nome e telefone para a equipe retornar.\n\n"
         . buildCompanyContext($companyProfile);
 
@@ -234,7 +240,7 @@ function buildCompanyContext(array $profile): string
     $lines[] = 'Endereço/base: ' . ($profile['endereco'] ?? '');
     $lines[] = 'Serviços: ' . implode(', ', $profile['servicos'] ?? []);
 
-    foreach (['precificacao', 'tecnologia', 'redes_sociais'] as $section) {
+    foreach (['tecnologia', 'financas', 'empreendedorismo'] as $section) {
         if (!empty($profile[$section]) && is_array($profile[$section])) {
             $lines[] = ucfirst(str_replace('_', ' ', $section)) . ': ' . implode(' ', $profile[$section]);
         }
@@ -251,4 +257,3 @@ function sanitizeAiText(string $text): string
 
     return trim($text);
 }
-

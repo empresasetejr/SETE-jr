@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS chatbot_options (
 DELETE FROM chatbot_options;
 
 INSERT INTO chatbot_options (option_number, title, response, active) VALUES
-('1', 'Desenvolvimento de sites e tecnologia', 'A Sete Jr pode ajudar com sites institucionais, landing pages, sistemas simples, automação de processos e organização digital para pequenos e grandes negócios. Conte rapidamente o que você precisa para avaliarmos o melhor caminho.', 1),
-('2', 'Precificação e finanças', 'Podemos apoiar sua precificação analisando custos fixos, custos variáveis, margem desejada e posicionamento de mercado. Também podemos montar uma planilha simples para ajudar na tomada de decisão.', 1),
-('3', 'Redes sociais e presença digital', 'A Sete Jr pode orientar sua presença digital com diagnóstico de perfil, organização da bio, destaques, ideias de conteúdo, calendário de postagens e chamadas para contato.', 1),
-('4', 'Falar com a equipe', 'Certo! Informe seu nome, telefone e uma breve descrição do seu negócio ou projeto para que a equipe da Sete Jr possa retornar com mais contexto.', 1),
-('5', 'Menu principal', '1 - Desenvolvimento de sites e tecnologia\n2 - Precificação e finanças\n3 - Redes sociais e presença digital\n4 - Falar com a equipe\n5 - Ver este menu novamente', 1);
+('1', 'Tecnologia', 'Na área de tecnologia, fazemos sites profissionais, sistemas simples e automação de processos. Conte qual solução digital você precisa.', 1),
+('2', 'Finanças', 'A SETE Jr ajuda com planejamento financeiro, controle de gastos e consultoria para MEI. Conte qual é a principal dúvida financeira do seu negócio.', 1),
+('3', 'Empreendedorismo', 'Apoiamos empreendedorismo com abertura de empresas, modelagem de negócio e estratégia inicial. Conte em que fase está sua ideia ou empresa.', 1),
+('4', 'Falar com a equipe', 'Certo! Envie seu nome, telefone e uma breve descrição do projeto.', 1),
+('5', 'Menu principal', '1 - Tecnologia\n2 - Finanças\n3 - Empreendedorismo\n4 - Falar com a equipe', 1);

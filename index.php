@@ -290,7 +290,7 @@
 
         <div class="chatbot-messages" id="chatbot-messages" aria-live="polite">
             <div class="chat-message bot">
-                Olá! Sou o assistente da Sete Jr. Digite 1 para serviços, 2 para horário, 3 para localização ou escreva sua dúvida.
+                Olá! Escolha uma opção: 1 - Tecnologia, 2 - Finanças, 3 - Empreendedorismo, 4 - Falar com a equipe.
             </div>
         </div>
 
@@ -299,7 +299,10 @@
             <button type="submit">Enviar</button>
         </form>
 
-        <button type="button" class="chatbot-end" id="chatbot-end">Encerrar conversa</button>
+        <div class="chatbot-actions">
+            <button type="button" class="chatbot-end" id="chatbot-end">Encerrar conversa</button>
+            <button type="button" class="chatbot-clear" id="chatbot-clear">Limpar conversa</button>
+        </div>
     </div>
 </section>
 

@@ -23,7 +23,7 @@ class ChatConversation extends Model
         return $this->findOne([
             'id' => $conversationId,
             'status' => 'open',
-        ], ['id']);
+        ], ['id', 'chatbot_type']);
     }
 
     public function updateActivity(int $conversationId): void
@@ -45,4 +45,3 @@ class ChatConversation extends Model
         ]);
     }
 }
-

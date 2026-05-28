@@ -6,7 +6,7 @@
  */
 return [
     'nome' => 'Sete Jr',
-    'descricao' => 'Empresa júnior formada por estudantes, com foco em soluções acessíveis de tecnologia, estratégia, redes sociais, finanças e empreendedorismo para pequenos e grandes negócios.',
+    'descricao' => 'Empresa júnior do UNIAENE formada por estudantes, com foco em soluções acessíveis de tecnologia, finanças e empreendedorismo para negócios locais e projetos em crescimento.',
     'telefone' => '(71) 98482-5330',
     'whatsapp' => '(71) 98482-5330',
     'email' => 'contato@setejunior.com',
@@ -18,28 +18,29 @@ return [
         'domingo' => 'Fechado',
     ],
     'servicos' => [
-        'Desenvolvimento de sites institucionais e landing pages',
+        'Desenvolvimento de sites profissionais, institucionais e landing pages',
         'Sistemas simples para controle interno',
-        'Automação de processos e organização digital',
-        'Consultoria de tecnologia para pequenos e grandes negócios',
-        'Apoio em redes sociais e presença digital',
-        'Precificação de produtos e serviços',
-        'Organização financeira e controle de gastos',
+        'Automação de processos',
+        'Planejamento financeiro',
+        'Controle de gastos',
+        'Consultoria para MEI',
+        'Abertura de empresas',
         'Modelagem de negócio e estratégia inicial',
     ],
-    'precificacao' => [
-        'analise_custos' => 'Levantamos custos fixos, custos variáveis, margem desejada e posicionamento de mercado.',
-        'entregavel' => 'Podemos entregar uma planilha simples de precificação e orientação para tomada de decisão.',
-        'observacao' => 'Valores e prazos dependem do tamanho do negócio e da quantidade de produtos ou serviços analisados.',
-    ],
     'tecnologia' => [
-        'sites' => 'Criamos sites institucionais, páginas de apresentação, landing pages e melhorias em sites existentes.',
+        'sites' => 'Criamos sites profissionais, páginas institucionais, landing pages e melhorias em sites existentes.',
         'sistemas' => 'Desenvolvemos sistemas simples para cadastro, controle, atendimento e organização de processos.',
         'automacao' => 'Ajudamos a reduzir tarefas repetitivas com formulários, planilhas, fluxos e ferramentas digitais.',
     ],
-    'redes_sociais' => [
-        'diagnostico' => 'Analisamos presença digital, identidade visual básica, frequência de postagens e clareza da comunicação.',
-        'apoio' => 'Podemos orientar calendário de conteúdo, posicionamento, bio, destaques e chamadas para contato.',
+    'financas' => [
+        'planejamento' => 'Apoiamos o planejamento financeiro para organizar metas, entradas, saídas e prioridades do negócio.',
+        'controle' => 'Ajudamos no controle de gastos, leitura de custos e organização financeira básica.',
+        'mei' => 'Orientamos MEIs e pequenos negócios em decisões iniciais de gestão financeira.',
+    ],
+    'empreendedorismo' => [
+        'abertura' => 'Apoiamos a abertura e estruturação inicial de empresas e projetos comerciais.',
+        'modelagem' => 'Ajudamos a desenhar modelo de negócio, público, proposta de valor e estratégia inicial.',
+        'crescimento' => 'Trabalhamos com soluções práticas para transformar ideias em resultados.',
     ],
     'publico' => [
         'Microempreendedores',
@@ -53,13 +54,12 @@ return [
             'resposta' => 'Sim. A Sete Jr pode desenvolver sites institucionais, landing pages e soluções digitais simples para negócios.',
         ],
         [
-            'pergunta' => 'Vocês ajudam com precificação?',
-            'resposta' => 'Sim. Podemos auxiliar no levantamento de custos, definição de margem e organização de uma planilha de precificação.',
+            'pergunta' => 'Vocês ajudam com finanças?',
+            'resposta' => 'Sim. A SETE Jr apoia planejamento financeiro, controle de gastos e consultoria para MEI.',
         ],
         [
-            'pergunta' => 'Vocês trabalham com redes sociais?',
-            'resposta' => 'Sim. Podemos apoiar presença digital, organização de conteúdo, diagnóstico de perfil e estratégias básicas de comunicação.',
+            'pergunta' => 'Vocês ajudam a abrir empresa?',
+            'resposta' => 'Sim. Podemos orientar abertura de empresas, modelagem de negócio e estratégia inicial.',
         ],
     ],
 ];
-
