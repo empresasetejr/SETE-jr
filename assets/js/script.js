@@ -75,42 +75,34 @@ function animate() {
 
 animate();
 
-const carrossel = document.querySelector(".carrossel");
-const slides = document.querySelectorAll(".slide"); // Seleciona cada imagem/quadrado
-let scrollPos = 0;
-let speed = 0.8; 
-let isPaused = false; // Controle de pausa
+function duplicateLoopContent(element) {
+    if (!element || element.dataset.loopReady === "true") return;
 
-function moveCarrossel() {
-    if (!carrossel || isPaused) {
-        // Se estiver pausado, continua chamando o loop mas não move o scroll
-        requestAnimationFrame(moveCarrossel);
-        return;
-    }
-
-    scrollPos += speed;
-    carrossel.scrollLeft = scrollPos;
-
-    if (scrollPos >= (carrossel.scrollWidth - carrossel.clientWidth)) {
-        scrollPos = 0;
-    }
-
-    requestAnimationFrame(moveCarrossel);
+    const itemCount = element.children.length * 2;
+    element.innerHTML += element.innerHTML;
+    element.style.setProperty("--loop-item-count", itemCount);
+    element.dataset.loopReady = "true";
 }
 
-// Configura cada slide para pausar a animação ao entrar com o mouse
-slides.forEach(slide => {
-    slide.addEventListener("mouseenter", () => {
-        isPaused = true;
-    });
-    slide.addEventListener("mouseleave", () => {
-        isPaused = false;
-    });
-});
+function createCarouselTrack() {
+    const carrossel = document.querySelector(".carrossel");
+    if (!carrossel || carrossel.dataset.loopReady === "true") return;
 
-window.addEventListener("load", () => {
-    moveCarrossel();
-});
+    const track = document.createElement("div");
+    track.className = "carrossel-track";
+
+    Array.from(carrossel.children).forEach((item) => {
+        track.appendChild(item);
+    });
+
+    track.innerHTML += track.innerHTML;
+    carrossel.appendChild(track);
+    carrossel.dataset.loopReady = "true";
+}
+
+duplicateLoopContent(document.querySelector(".slider"));
+document.querySelectorAll(".faixa-track").forEach(duplicateLoopContent);
+createCarouselTrack();
 
 let lastScroll = 0;
 const navbar = document.querySelector(".navbar");
