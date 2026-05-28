@@ -28,42 +28,65 @@ titles.forEach(title => {
 
 const cursor = document.querySelector(".cursor");
 const titles = document.querySelectorAll("h1, lord-icon");
+const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 
 let mouseX = 0;
 let mouseY = 0;
 
 let posX = 0;
 let posY = 0;
+let cursorHideTimeout;
 
-// Captura posição real do mouse
-document.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
+if (cursor && !hasFinePointer) {
+  cursor.style.display = "none";
+}
 
-// Efeito ao passar no título 
-titles.forEach(title => {
-  title.addEventListener("mouseenter", () => {
-    cursor.classList.add("active");
-  });
+function showCursorTemporarily() {
+  if (!cursor || !hasFinePointer) return;
 
-  title.addEventListener("mouseleave", () => {
-    cursor.classList.remove("active");
-  });
-});
-
-// Quando o mouse sai da janela
-document.addEventListener("mouseleave", () => {
-  cursor.classList.add("hidden");
-});
-
-// Quando o mouse volta
-document.addEventListener("mouseenter", () => {
   cursor.classList.remove("hidden");
-});
+  clearTimeout(cursorHideTimeout);
+  cursorHideTimeout = setTimeout(() => {
+    cursor.classList.add("hidden");
+  }, 1800);
+}
+
+if (cursor && hasFinePointer) {
+  cursor.classList.add("hidden");
+
+  // Captura posição real do mouse
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    showCursorTemporarily();
+  });
+
+  // Efeito ao passar no título
+  titles.forEach(title => {
+    title.addEventListener("mouseenter", () => {
+      cursor.classList.add("active");
+      showCursorTemporarily();
+    });
+
+    title.addEventListener("mouseleave", () => {
+      cursor.classList.remove("active");
+      showCursorTemporarily();
+    });
+  });
+
+  // Quando o mouse sai da janela
+  document.addEventListener("mouseleave", () => {
+    cursor.classList.add("hidden");
+  });
+
+  // Quando o mouse volta
+  document.addEventListener("mouseenter", showCursorTemporarily);
+}
 
 // Animação suave (50% mais rápido)
 function animate() {
+  if (!cursor || !hasFinePointer) return;
+
   posX += (mouseX - posX) * 0.12;
   posY += (mouseY - posY) * 0.12;
 

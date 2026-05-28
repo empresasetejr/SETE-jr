@@ -41,10 +41,7 @@
     <section class="cardhome">
         <div class="text">
             <h1>SETE jr</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Iure dolor iste debitis cumque? Provident reprehenderit, eveniet
-                magni ut officia natus repellendus error cupiditate, iure obcaecati
-                ex hic beatae illum? Necessitatibus!</p>
+            <p>Somos uma empresa júnior sem fins lucrativos, gerida por estudantes do UNIAENE. Colocamos em prática o que aprendemos em sala, oferecendo soluções em tecnologia, finanças e empreendedorismo para micro e pequenos negócios.</p>
         </div>
         <div class="circle-wrapper">
             <div class="circle-mask">
@@ -62,23 +59,23 @@
 <section class="card">
     
     <div class="squad">
-        <h1>Prática real</h1>
-        <p>Aplicamos na prática o que aprendemos em sala, resolvendo problemas reais de negócios.</p>
+        <h1>Missão</h1>
+        <p>Impulsionar o desenvolvimento empreendedor e tecnológico do Recôncavo Baiano.</p>
     </div>
 
     <div class="squad">
-        <h1>Impacto local</h1>
-        <p>Trabalhamos para fortalecer micro e pequenos negócios da nossa região.</p>
+        <h1>Visão</h1>
+        <p>Ser referência regional em inovação, empreendedorismo sustentável e soluções acessíveis.</p>
     </div>
 
     <div class="squad">
-        <h1>Inovação</h1>
-        <p>Buscamos soluções modernas e eficientes para transformar ideias em resultados.</p>
+        <h1>Valores</h1>
+        <p>Inovação, aprendizado, comprometimento, colaboração, sustentabilidade e ética.</p>
     </div>
 
     <div class="squad">
-        <h1>Equipe</h1>
-        <p>Somos estudantes colaborando, aprendendo e crescendo juntos em cada projeto.</p>
+        <h1>Serviços</h1>
+        <p>Consultoria financeira, abertura de empresas, sistemas de gestão e transformação digital.</p>
     </div>
 
 </section>
@@ -118,11 +115,7 @@
     </section>
     <div class="text">
         <h1>Eventos</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Iure dolor iste debitis cumque? Provident reprehenderit, eveniet
-            magni ut officia natus repellendus error cupiditate, iure obcaecati
-            ex hic beatae illum? Necessitatibus!
-        <p>
+        <p>Participamos de ações, encontros e projetos que aproximam os estudantes da realidade dos negócios locais. Cada experiência fortalece nossa formação e gera impacto para quem acredita em fazer a diferença.</p>
     </div>
 
       <section class="content" id="we">
@@ -134,7 +127,7 @@
     <div class="bento-grid">
         <div class="bento-item main-about">
     <h2>Quem Somos</h2>
-    <p>A SETE Jr é a Empresa Júnior do UNIAENE...</p>
+    <p>A SETE Jr é a Empresa Júnior do UNIAENE. Atuamos sem fins lucrativos, conectando estudantes a desafios reais de micro e pequenos negócios por meio de tecnologia, finanças e estratégia.</p>
     
     <div class="team-section">
         <div class="team-avatars">

@@ -1876,3 +1876,227 @@ body::before {
         grid-template-columns: 1fr;
     }
 }
+
+/* =======================================================
+   REFINO RESPONSIVO FINAL
+======================================================= */
+
+@media (pointer: coarse) {
+    .cursor {
+        display: none !important;
+    }
+}
+
+@media (max-width: 700px) {
+    body {
+        font-size: 15px;
+    }
+
+    .navbar {
+        min-height: 64px;
+        padding: 0 18px;
+    }
+
+    .navbar img {
+        width: 112px !important;
+        max-height: 48px;
+    }
+
+    .navbar-links.active {
+        max-height: 340px;
+    }
+
+    .navbar-links ul {
+        width: 100%;
+        gap: 4px;
+    }
+
+    .navbar-links li a {
+        width: 100%;
+        padding: 0.82rem 0;
+        font-size: 0.96rem;
+    }
+
+    .hero {
+        min-height: 58vh;
+        padding: 118px 18px 62px;
+        background-position: center;
+    }
+
+    .hero h1 {
+        width: 100%;
+        font-size: clamp(2.35rem, 14vw, 4.5rem);
+        line-height: 1;
+    }
+
+    .faixa {
+        margin-top: 0;
+        padding: 9px 0;
+    }
+
+    .faixa span {
+        margin-right: 26px;
+    }
+
+    .cardhome {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 26px;
+        padding: 34px 20px;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .cardhome .text,
+    .content > .text,
+    body > .text {
+        width: 100%;
+        max-width: none;
+    }
+
+    .text h1,
+    .servicos h1 {
+        font-size: clamp(2rem, 11vw, 3rem);
+    }
+
+    .text p,
+    .cardhome p,
+    .sub {
+        font-size: 0.98rem;
+        line-height: 1.68;
+    }
+
+    .circle-wrapper {
+        align-self: center;
+        width: min(82vw, 310px);
+        min-width: 0;
+    }
+
+    .card {
+        grid-template-columns: 1fr;
+        padding: 42px 18px;
+        gap: 16px;
+    }
+
+    .squad {
+        padding: 22px;
+    }
+
+    .carrossel {
+        padding: 44px 18px;
+        gap: 14px;
+    }
+
+    .carrossel-track {
+        gap: 14px;
+        animation-duration: 28s;
+    }
+
+    .slide {
+        min-width: min(72vw, 240px);
+        height: 150px;
+        border-radius: 8px;
+    }
+
+    .slide:nth-child(odd) {
+        transform: translateY(-10px);
+    }
+
+    .slide.baixo {
+        transform: translateY(10px);
+    }
+
+    body > .text {
+        padding: 48px 20px 12px;
+    }
+
+    .content {
+        padding: 62px 20px;
+    }
+
+    .bento-grid,
+    .servicos-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 28px;
+    }
+
+    .bento-item,
+    .servico-card {
+        padding: 24px 20px;
+    }
+
+    .team-avatars {
+        flex-wrap: wrap;
+        row-gap: 12px;
+    }
+
+    .servicos {
+        padding: 70px 20px;
+        background-attachment: scroll;
+    }
+
+    .chat-contact {
+        padding: 58px 16px;
+        gap: 28px;
+    }
+
+    .contact-list span {
+        padding: 12px 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .chatbot-header {
+        align-items: flex-start;
+        gap: 12px;
+        flex-direction: column;
+    }
+
+    .chatbot-header select {
+        width: 100%;
+    }
+
+    .chatbot-messages {
+        min-height: 260px;
+        max-height: 340px;
+        padding: 14px;
+    }
+
+    .chat-message {
+        max-width: 92%;
+        font-size: 0.94rem;
+    }
+
+    .chatbot-form {
+        flex-direction: column;
+    }
+
+    .chatbot-form button {
+        min-height: 44px;
+        padding: 12px 18px;
+    }
+
+    .footer-content {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .contato-icons {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero h1 {
+        font-size: 2.25rem;
+    }
+
+    .slide {
+        min-width: 78vw;
+    }
+
+    .chatbot-card {
+        margin-inline: -4px;
+    }
+}
