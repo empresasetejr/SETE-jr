@@ -179,7 +179,7 @@
         <div class="servico-card">
 
             <lord-icon
-                src="https://cdn.lordicon.com/uiigekiw.json"
+                src="https://cdn.lordicon.com/vrexohmd.json"
                 trigger="hover"
                 stroke="bold"
                 colors="primary:#7c3aed,secondary:#67e8f9"
@@ -252,13 +252,39 @@
     <div class="chat-contact-info">
         <p class="sub">Atendimento</p>
         <h1>Fale com a Sete Jr</h1>
-        <p>Use o chatbot para tirar dúvidas iniciais sobre serviços, horários, projetos e contato com a equipe.</p>
+        <p>Use o chatbot para tirar dúvidas iniciais sobre serviços, projetos e atendimento online da equipe.</p>
 
         <div class="contact-list">
-            <span>Instagram: @setejunior</span>
-            <span>WhatsApp: (71) 98482-5330</span>
-            <span>E-mail: contato@setejunior.com</span>
+            <a href="https://instagram.com/setejunior" target="_blank" class="contact-card" aria-label="Instagram da Sete Jr">
+                <lord-icon
+                    src="https://cdn.lordicon.com/xxfmfkoa.json"
+                    trigger="hover"
+                    stroke="bold"
+                    colors="primary:#a855f7,secondary:#22d3ee"
+                    style="width:42px;height:42px">
+                </lord-icon>
+                <span>
+                    <strong>Instagram</strong>
+                    @setejunior
+                </span>
+            </a>
+
+            <a href="https://wa.me/5571984825330?text=Olá%20vim%20pelo%20site" target="_blank" class="contact-card" aria-label="WhatsApp da Sete Jr">
+                <lord-icon
+                    src="https://cdn.lordicon.com/lzhauhfx.json"
+                    trigger="hover"
+                    stroke="bold"
+                    colors="primary:#a855f7,secondary:#22d3ee"
+                    style="width:42px;height:42px">
+                </lord-icon>
+                <span>
+                    <strong>WhatsApp</strong>
+                    (71) 98482-5330
+                </span>
+            </a>
         </div>
+
+        <p class="contact-note">Base institucional: Centro Jurídico do UNIAENE. No momento, o atendimento acontece somente de forma online.</p>
     </div>
 
     <div class="chatbot-card" aria-label="Chatbot de atendimento da Sete Jr">
@@ -276,9 +302,9 @@
 
         <div class="chatbot-visitor">
             <!-- Preencha aqui se quiser tornar obrigatório nome/telefone/e-mail antes do atendimento. -->
-            <input type="text" id="visitor-name" placeholder="Seu nome">
-            <input type="tel" id="visitor-phone" placeholder="Telefone">
-            <input type="email" id="visitor-email" placeholder="E-mail">
+            <input type="text" id="visitor-name" placeholder="Seu nome" required>
+            <input type="tel" id="visitor-phone" placeholder="Telefone" required>
+            <input type="email" id="visitor-email" placeholder="E-mail" required>
         </div>
 
         <div class="chatbot-messages" id="chatbot-messages" aria-live="polite">

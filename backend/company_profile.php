@@ -6,14 +6,15 @@
  */
 return [
     'nome' => 'Sete Jr',
-    'descricao' => 'Empresa júnior do UNIAENE formada por estudantes, com foco em soluções acessíveis de tecnologia, finanças e empreendedorismo para negócios locais e projetos em crescimento.',
+    'descricao' => 'Empresa júnior do UNIAENE formada por estudantes, com foco em soluções acessíveis de tecnologia, finanças e empreendedorismo para negócios locais e projetos em crescimento. A base institucional fica no Centro Jurídico do UNIAENE, mas o atendimento atual é somente online.',
     'telefone' => '(71) 98482-5330',
     'whatsapp' => '(71) 98482-5330',
-    'email' => 'contato@setejunior.com',
+    'email' => '',
     'instagram' => '@setejunior',
-    'endereco' => 'UNIAENE - Bahia',
+    'endereco' => 'Centro Jurídico do UNIAENE - Bahia',
+    'atendimento' => 'Atendimento somente online no momento. Não há atendimento presencial atualmente.',
     'horario' => [
-        'segunda_a_sexta' => 'Atendimento inicial em horário comercial',
+        'segunda_a_sexta' => 'Atendimento online inicial em horário comercial',
         'sabado' => 'Sob agendamento',
         'domingo' => 'Fechado',
     ],

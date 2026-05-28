@@ -2,13 +2,12 @@
   Chatbot da Sete Jr
   - Mostra mensagens na tela
   - Envia mensagens para backend/chatbot_response.php
-  - Carrega histórico em backend/get_messages.php
   - Encerra conversa em backend/close_conversation.php
 */
 
 const defaultMessages = {
-    manual: "Olá! Escolha uma opção: 1 - Tecnologia, 2 - Finanças, 3 - Empreendedorismo, 4 - Falar com a equipe.",
-    ai: "Olá! Sou a assistente com IA da Sete Jr. Pergunte sobre tecnologia, finanças, empreendedorismo ou contato com a equipe."
+    manual: "Olá! Preencha nome, telefone e e-mail acima para iniciar. Depois escolha: 1 - Tecnologia, 2 - Finanças, 3 - Empreendedorismo, 4 - Falar com a equipe.",
+    ai: "Olá! Preencha nome, telefone e e-mail acima para iniciar. Depois pergunte sobre tecnologia, finanças, empreendedorismo ou contato com a equipe."
 };
 
 function getCurrentMode() {
@@ -34,6 +33,19 @@ const visitorPhone = document.getElementById("visitor-phone");
 const visitorEmail = document.getElementById("visitor-email");
 
 let conversationId = getStoredConversationId();
+let manualUnknownCount = 0;
+
+function hasVisitorInfo() {
+    return Boolean(
+        visitorName && visitorName.value.trim()
+        && visitorPhone && visitorPhone.value.trim()
+        && visitorEmail && visitorEmail.value.trim()
+    );
+}
+
+function focusFirstMissingVisitorField() {
+    [visitorName, visitorPhone, visitorEmail].find((field) => field && !field.value.trim())?.focus();
+}
 
 function addChatMessage(text, sender = "bot") {
     if (!chatbotMessages) return;
@@ -52,23 +64,9 @@ function resetChatMessages(mode = getCurrentMode()) {
     addChatMessage(defaultMessages[mode] || defaultMessages.manual, mode === "ai" ? "ai" : "bot");
 }
 
-async function loadChatHistory() {
-    if (!conversationId || !chatbotMessages) return;
-
-    try {
-        const response = await fetch(`backend/get_messages.php?conversation_id=${conversationId}`);
-        const data = await response.json();
-
-        if (!Array.isArray(data.messages) || data.messages.length === 0) {
-            resetChatMessages();
-            return;
-        }
-
-        chatbotMessages.innerHTML = "";
-        data.messages.forEach((message) => addChatMessage(message.message, message.sender));
-    } catch (error) {
-        addChatMessage("Não foi possível carregar o histórico da conversa.", "bot");
-    }
+function addWhatsappRedirectMessage() {
+    const whatsappUrl = "https://wa.me/5571984825330?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20preciso%20de%20atendimento";
+    addChatMessage(`Não consegui entender bem. Fale direto com a equipe pelo WhatsApp: ${whatsappUrl}`, "bot");
 }
 
 async function sendChatMessage(messageText) {
@@ -117,6 +115,12 @@ if (chatbotForm) {
         const messageText = chatbotInput.value.trim();
         if (!messageText) return;
 
+        if (!conversationId && !hasVisitorInfo()) {
+            addChatMessage("Antes de continuar, preencha seu nome, telefone e e-mail nos campos acima.", "bot");
+            focusFirstMissingVisitorField();
+            return;
+        }
+
         addChatMessage(messageText, "user");
         chatbotInput.value = "";
         chatbotInput.disabled = true;
@@ -129,10 +133,21 @@ if (chatbotForm) {
                 localStorage.setItem(getConversationStorageKey(), String(conversationId));
             }
 
-            addChatMessage(
-                data.reply || "Não consegui responder agora. Tente novamente em instantes.",
-                data.reply_sender || data.sender || "bot"
-            );
+            const reply = data.reply || "Não consegui responder agora. Tente novamente em instantes.";
+            addChatMessage(reply, data.reply_sender || data.sender || "bot");
+
+            if (getCurrentMode() === "manual") {
+                if (data.not_understood) {
+                    manualUnknownCount += 1;
+
+                    if (manualUnknownCount >= 3) {
+                        addWhatsappRedirectMessage();
+                        manualUnknownCount = 0;
+                    }
+                } else {
+                    manualUnknownCount = 0;
+                }
+            }
         } catch (error) {
             addChatMessage("Não foi possível conectar ao atendimento. Verifique se o PHP e o MySQL estão configurados.", "bot");
         } finally {
@@ -154,6 +169,7 @@ if (chatbotEnd) {
         } finally {
             localStorage.removeItem(getConversationStorageKey());
             conversationId = 0;
+            manualUnknownCount = 0;
             resetChatMessages();
             addChatMessage("Conversa encerrada. Quando quiser, é só enviar uma nova mensagem.", "bot");
         }
@@ -174,6 +190,7 @@ if (chatbotClear) {
             localStorage.removeItem(getConversationStorageKey("manual"));
             localStorage.removeItem(getConversationStorageKey("ai"));
             conversationId = 0;
+            manualUnknownCount = 0;
             resetChatMessages();
             addChatMessage("Conversa limpa nos modos Manual e IA.", "bot");
             if (chatbotInput) {
@@ -186,10 +203,9 @@ if (chatbotClear) {
 if (chatbotMode) {
     chatbotMode.addEventListener("change", async () => {
         conversationId = getStoredConversationId();
+        manualUnknownCount = 0;
         resetChatMessages();
-        await loadChatHistory();
     });
 }
 
 resetChatMessages();
-loadChatHistory();

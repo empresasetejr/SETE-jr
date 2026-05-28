@@ -1,9 +1,3 @@
-CREATE DATABASE IF NOT EXISTS devweb_chatbot
-CHARACTER SET utf8mb4
-COLLATE utf8mb4_unicode_ci;
-
-USE devweb_chatbot;
-
 CREATE TABLE IF NOT EXISTS chat_conversations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     visitor_name VARCHAR(100) NULL,
@@ -21,7 +15,6 @@ CREATE TABLE IF NOT EXISTS chat_messages (
     sender ENUM('user', 'bot', 'ai') NOT NULL,
     message TEXT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (conversation_id) REFERENCES chat_conversations(id)
 );
 
