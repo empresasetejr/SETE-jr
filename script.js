@@ -128,6 +128,29 @@ window.addEventListener("scroll", () => {
 
   lastScroll = currentScroll <= 0 ? 0 : currentScroll;
 });
+
+const parallaxSections = document.querySelectorAll(".hero, .servicos");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+function updateParallax() {
+    if (reduceMotion.matches) return;
+
+    parallaxSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+        if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+        const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+        const offset = (progress - 0.5) * 48;
+        section.style.setProperty("--parallax-offset", `${offset.toFixed(2)}px`);
+    });
+}
+
+window.addEventListener("scroll", updateParallax, { passive: true });
+window.addEventListener("resize", updateParallax);
+window.addEventListener("load", updateParallax);
+updateParallax();
 // Efeito de Reveal ao Scroll
 const observers = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -148,6 +171,8 @@ document.querySelectorAll('.bento-item').forEach(item => {
 const modalTeam = document.getElementById("team-modal");
 
 function openTeamModal(element) {
+    if (!modalTeam) return;
+
     // 1. Pegar os dados da div clicada
     const name = element.getAttribute("data-name");
     const role = element.getAttribute("data-role");
@@ -174,7 +199,7 @@ if(btnClose) {
 
 // Fechar ao clicar fora
 window.addEventListener("click", (event) => {
-    if (event.target == modalTeam) {
+    if (modalTeam && event.target == modalTeam) {
         modalTeam.style.display = "none";
     }
 });
