@@ -59,7 +59,7 @@ img {
 
 .hero {
     height: 50vh;
-    background-image: url(images/AdobeStock_1008056342.jpeg);
+    background-image: url("../img/AdobeStock_1008056342.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top left;
@@ -358,7 +358,7 @@ p {
     padding: 80px 20px;
     background: var(--bg-secondary);
     text-align: center;
-    background-image: url(images/AdobeStock_1008056342.jpeg);
+    background-image: url("../img/AdobeStock_1008056342.jpeg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -909,7 +909,7 @@ p {
 
 @font-face {
     font-family: "Citizen Sans";
-    src: url("fonts/CitizenSans-Public.otf") format("opentype");
+    src: url("../fonts/CitizenSans-Public.otf") format("opentype");
     font-display: swap;
 }
 
@@ -1544,11 +1544,11 @@ p,
 }
 
 .faixa:not(.faixa-home-hidden) span:first-child::before {
-    content: "EMPREENDEDORISMO - INOVA\C3 \2021 \C3 \192 O \E2 \20AC \A2 TECNOLOGIA - FINAN\C3 \2021 AS \E2 \20AC \A2 EMPREENDEDORISMO - INOVA\C3 \2021 \C3 \192 O \E2 \20AC \A2";
+    content: "EMPREENDEDORISMO - INOVAÇÃO • TECNOLOGIA - FINANÇAS • EMPREENDEDORISMO - INOVAÇÃO •";
 }
 
 .faixa:not(.faixa-home-hidden) span:last-child::before {
-    content: "TECNOLOGIA - FINAN\C3 \2021 AS \E2 \20AC \A2 EMPREENDEDORISMO - INOVA\C3 \2021 \C3 \192 O \E2 \20AC \A2 EMPREENDEDORISMO - INOVA\C3 \2021 \C3 \192 O";
+    content: "TECNOLOGIA - FINANÇAS • EMPREENDEDORISMO - INOVAÇÃO • EMPREENDEDORISMO - INOVAÇÃO";
 }
 
 body::before {
@@ -1681,5 +1681,170 @@ body::before {
 
     .navbar-links.active ul {
         transform: translateY(0);
+    }
+}
+
+/* =======================================================
+   CONTATO / CHATBOT
+======================================================= */
+
+.chat-contact {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1fr);
+    gap: clamp(28px, 5vw, 70px);
+    align-items: center;
+    padding: 90px 7%;
+    background: #08080d;
+    color: var(--text-main);
+}
+
+.chat-contact-info h1 {
+    margin: 0 0 18px;
+    color: var(--text-main);
+}
+
+.chat-contact-info p {
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+.contact-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 28px;
+    color: var(--text-light);
+}
+
+.contact-list span {
+    padding: 14px 16px;
+    border: 1px solid rgba(168, 85, 247, 0.24);
+    border-radius: 8px;
+    background: rgba(15, 12, 22, 0.74);
+}
+
+.chatbot-card {
+    border: 1px solid rgba(168, 85, 247, 0.32);
+    border-radius: 8px;
+    background: rgba(15, 12, 22, 0.94);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+    overflow: hidden;
+}
+
+.chatbot-header,
+.chatbot-form,
+.chatbot-visitor {
+    display: flex;
+    gap: 10px;
+    padding: 14px;
+}
+
+.chatbot-header {
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(168, 85, 247, 0.22);
+}
+
+.chatbot-header > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chatbot-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 16px rgba(34, 197, 94, 0.8);
+}
+
+.chatbot-header select,
+.chatbot-visitor input,
+.chatbot-form input {
+    min-width: 0;
+    border: 1px solid rgba(168, 85, 247, 0.28);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.28);
+    color: var(--text-main);
+    outline: none;
+}
+
+.chatbot-header select {
+    padding: 9px 10px;
+}
+
+.chatbot-visitor {
+    border-bottom: 1px solid rgba(168, 85, 247, 0.18);
+}
+
+.chatbot-visitor input,
+.chatbot-form input {
+    flex: 1;
+    padding: 12px 13px;
+}
+
+.chatbot-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 300px;
+    max-height: 380px;
+    padding: 18px;
+    overflow-y: auto;
+}
+
+.chat-message {
+    max-width: 82%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    line-height: 1.5;
+    color: var(--text-main);
+}
+
+.chat-message.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.9), rgba(34, 211, 238, 0.52));
+}
+
+.chat-message.bot,
+.chat-message.ai {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(168, 85, 247, 0.18);
+}
+
+.chatbot-form {
+    border-top: 1px solid rgba(168, 85, 247, 0.22);
+}
+
+.chatbot-form button,
+.chatbot-end {
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #ffffff;
+    background: var(--primary);
+}
+
+.chatbot-form button {
+    padding: 0 18px;
+}
+
+.chatbot-end {
+    width: calc(100% - 28px);
+    margin: 0 14px 14px;
+    padding: 11px 14px;
+    background: rgba(168, 85, 247, 0.18);
+    border: 1px solid rgba(168, 85, 247, 0.28);
+}
+
+@media (max-width: 900px) {
+    .chat-contact {
+        grid-template-columns: 1fr;
+        padding: 70px 20px;
+    }
+
+    .chatbot-visitor {
+        flex-direction: column;
     }
 }

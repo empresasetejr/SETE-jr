@@ -203,3 +203,105 @@ window.addEventListener("click", (event) => {
         modalTeam.style.display = "none";
     }
 });
+
+/* =======================================================
+   CHATBOT
+======================================================= */
+
+const chatbotForm = document.getElementById("chatbot-form");
+const chatbotInput = document.getElementById("chatbot-input");
+const chatbotMessages = document.getElementById("chatbot-messages");
+const chatbotMode = document.getElementById("chatbot-mode");
+const chatbotEnd = document.getElementById("chatbot-end");
+const visitorName = document.getElementById("visitor-name");
+const visitorPhone = document.getElementById("visitor-phone");
+const visitorEmail = document.getElementById("visitor-email");
+
+let conversationId = localStorage.getItem("sete_chat_conversation_id") || "";
+
+function addChatMessage(text, sender = "bot") {
+    if (!chatbotMessages) return;
+
+    const message = document.createElement("div");
+    message.className = `chat-message ${sender}`;
+    message.textContent = text;
+    chatbotMessages.appendChild(message);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+async function sendChatMessage(messageText) {
+    const payload = {
+        conversation_id: conversationId,
+        message: messageText,
+        mode: chatbotMode ? chatbotMode.value : "manual",
+        visitor_name: visitorName ? visitorName.value : "",
+        visitor_phone: visitorPhone ? visitorPhone.value : "",
+        visitor_email: visitorEmail ? visitorEmail.value : ""
+    };
+
+    const response = await fetch("backend/chatbot_response.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao comunicar com o chatbot.");
+    }
+
+    return response.json();
+}
+
+if (chatbotForm) {
+    chatbotForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const messageText = chatbotInput.value.trim();
+        if (!messageText) return;
+
+        addChatMessage(messageText, "user");
+        chatbotInput.value = "";
+        chatbotInput.disabled = true;
+
+        try {
+            const data = await sendChatMessage(messageText);
+
+            if (data.conversation_id) {
+                conversationId = data.conversation_id;
+                localStorage.setItem("sete_chat_conversation_id", conversationId);
+            }
+
+            addChatMessage(data.reply || "Não consegui responder agora. Tente novamente em instantes.", data.sender || "bot");
+        } catch (error) {
+            addChatMessage("Não foi possível conectar ao atendimento. Verifique se o PHP e o MySQL estão configurados.", "bot");
+        } finally {
+            chatbotInput.disabled = false;
+            chatbotInput.focus();
+        }
+    });
+}
+
+if (chatbotEnd) {
+    chatbotEnd.addEventListener("click", async () => {
+        if (!conversationId) {
+            addChatMessage("A conversa ainda não foi iniciada.", "bot");
+            return;
+        }
+
+        try {
+            await fetch("backend/chat_end.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ conversation_id: conversationId })
+            });
+        } finally {
+            localStorage.removeItem("sete_chat_conversation_id");
+            conversationId = "";
+            addChatMessage("Conversa encerrada. Quando quiser, é só enviar uma nova mensagem.", "bot");
+        }
+    });
+}

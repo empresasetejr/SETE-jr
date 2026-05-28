@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SETE jr</title>
 
-    <link rel="icon" href="images/7jr.png" type="image/png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/img/7jr.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
     <nav class="navbar">
-        <img src="images/LOGO SETE JR BRANCA (1) - Copia.png" alt="logo" style="width: 120px;">
+        <img src="assets/img/LOGO SETE JR BRANCA (1) - Copia.png" alt="logo" style="width: 120px;">
         <a class="toggle-button">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -49,11 +49,11 @@
         <div class="circle-wrapper">
             <div class="circle-mask">
                 <div class="slider">
-                    <img src="images/71.png">
-                    <img src="images/7fernanda.png">
-                    <img src="images/7luiz.png">
-                    <img src="images/7bisneto.png">
-                    <img src="images/7davi.png">
+                    <img src="assets/img/71.png">
+                    <img src="assets/img/7fernanda.png">
+                    <img src="assets/img/7luiz.png">
+                    <img src="assets/img/7bisneto.png">
+                    <img src="assets/img/7davi.png">
                 </div>
             </div>
             <div class="neon-border"></div>
@@ -86,34 +86,34 @@
     <div class="cursor"></div>
     <div class="faixa">
   <div class="faixa-track">
-    <span>EMPREENDEDORISMO - INOVAÃ‡ÃƒO â€¢ TECNOLOGIA - FINANÃ‡AS â€¢ EMPREENDEDORISMO - INOVAÃ‡ÃƒO â€¢</span>
-    <span>TECNOLOGIA - FINANÃ‡AS â€¢ EMPREENDEDORISMO - INOVAÃ‡ÃƒO â€¢ EMPREENDEDORISMO - INOVAÃ‡ÃƒO</span>
+    <span>EMPREENDEDORISMO - INOVAÇÃO • TECNOLOGIA - FINANÇAS • EMPREENDEDORISMO - INOVAÇÃO •</span>
+    <span>TECNOLOGIA - FINANÇAS • EMPREENDEDORISMO - INOVAÇÃO • EMPREENDEDORISMO - INOVAÇÃO</span>
   </div>
 </div>
     <section class="carrossel">
         <div class="slide">
-            <img src="images/img1.png">
+            <img src="assets/img/img1.png">
         </div>
         <div class="slide baixo">
-            <img src="images/img2.png">
+            <img src="assets/img/img2.png">
         </div>
         <div class="slide">
-            <img src="images/img3.png">
+            <img src="assets/img/img3.png">
         </div>
         <div class="slide baixo">
-            <img src="images/img4.png">
+            <img src="assets/img/img4.png">
         </div>
         <div class="slide">
-            <img src="images/img5.jpeg">
+            <img src="assets/img/img5.jpeg">
         </div>
         <div class="slide baixo">
-            <img src="images/img6.jpeg">
+            <img src="assets/img/img6.jpeg">
         </div>
         <div class="slide">
-            <img src="images/img7.jpeg">
+            <img src="assets/img/img7.jpeg">
         </div>
         <div class="slide baixo">
-            <img src="images/img8.jpeg">
+            <img src="assets/img/img8.jpeg">
         </div>
     </section>
     <div class="text">
@@ -139,7 +139,7 @@
     <div class="team-section">
         <div class="team-avatars">
             <div class="avatar-wrapper">
-                <img src="images/71.png" alt="Membro 1">
+                <img src="assets/img/71.png" alt="Membro 1">
                 <span class="tooltip">João - Presidente</span>
             </div>
             <div class="avatar-wrapper" 
@@ -147,11 +147,11 @@
                 data-role="Diretora de Projetos" 
                 data-bio="Estudante de Engenharia apaixonada por automação e gestão de processos."
                 onclick="openTeamModal(this)">
-                <img src="images/7fernanda.png">
+                <img src="assets/img/7fernanda.png">
                 <span class="tooltip">Fernanda - Projetos</span>
             </div>
             <div class="avatar-wrapper">
-                <img src="images/7bisneto.png" alt="Membro 3">
+                <img src="assets/img/7bisneto.png" alt="Membro 3">
                 <span class="tooltip">Bisneto - Dev</span>
             </div>
             <div class="avatar-wrapper plus">
@@ -255,9 +255,57 @@
 
 </section>
 
+<section class="chat-contact" id="contacts">
+    <div class="chat-contact-info">
+        <p class="sub">Atendimento</p>
+        <h1>Fale com a Sete Jr</h1>
+        <p>Use o chatbot para tirar dúvidas iniciais sobre serviços, horários, projetos e contato com a equipe.</p>
+
+        <div class="contact-list">
+            <span>Instagram: @setejunior</span>
+            <span>WhatsApp: (71) 98482-5330</span>
+            <span>E-mail: contato@setejunior.com</span>
+        </div>
+    </div>
+
+    <div class="chatbot-card" aria-label="Chatbot de atendimento da Sete Jr">
+        <div class="chatbot-header">
+            <div>
+                <span class="chatbot-status"></span>
+                <strong>Assistente Sete Jr</strong>
+            </div>
+
+            <select id="chatbot-mode" aria-label="Modo do chatbot">
+                <option value="manual">Manual</option>
+                <option value="ai">IA</option>
+            </select>
+        </div>
+
+        <div class="chatbot-visitor">
+            <!-- Preencha aqui se quiser tornar obrigatório nome/telefone/e-mail antes do atendimento. -->
+            <input type="text" id="visitor-name" placeholder="Seu nome">
+            <input type="tel" id="visitor-phone" placeholder="Telefone">
+            <input type="email" id="visitor-email" placeholder="E-mail">
+        </div>
+
+        <div class="chatbot-messages" id="chatbot-messages" aria-live="polite">
+            <div class="chat-message bot">
+                Olá! Sou o assistente da Sete Jr. Digite 1 para serviços, 2 para horário, 3 para localização ou escreva sua dúvida.
+            </div>
+        </div>
+
+        <form class="chatbot-form" id="chatbot-form">
+            <input type="text" id="chatbot-input" placeholder="Digite sua mensagem..." autocomplete="off" required>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <button type="button" class="chatbot-end" id="chatbot-end">Encerrar conversa</button>
+    </div>
+</section>
+
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
-    <script src="script.js"></script>
-<footer class="main-footer" id="contacts">
+    <script src="assets/js/script.js"></script>
+<footer class="main-footer">
     <div class="footer-content">
         <div class="footer-brand">
             <h2 class="footer-logo">Sete Junior</h2>
