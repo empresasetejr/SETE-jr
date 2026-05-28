@@ -1,150 +1,199 @@
 <?php
-require_once __DIR__ . '/database.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
+require_once __DIR__ . '/chat_helpers.php';
+
+$companyProfile = require __DIR__ . '/company_profile.php';
+$payload = json_decode(file_get_contents('php://input'), true) ?: [];
+
+$mode = ($payload['mode'] ?? 'manual') === 'ai' ? 'ai' : 'manual';
+$message = trim($payload['message'] ?? '');
+$conversationId = isset($payload['conversation_id']) ? (int) $payload['conversation_id'] : 0;
+$visitorName = trim($payload['visitor_name'] ?? '') ?: null;
+$visitorPhone = trim($payload['visitor_phone'] ?? '') ?: null;
+$visitorEmail = trim($payload['visitor_email'] ?? '') ?: null;
+
+if ($message === '') {
+    http_response_code(422);
+    echo json_encode(['error' => 'Mensagem vazia.']);
+    exit;
+}
+
 try {
-    $input = json_decode(file_get_contents('php://input'), true);
-
-    if (!is_array($input)) {
-        throw new RuntimeException('Dados inválidos.');
+    if ($conversationId <= 0 || !getOpenConversation($conversationId)) {
+        $conversationId = createConversation($visitorName, $visitorPhone, $visitorEmail, $mode);
     }
 
-    $message = trim($input['message'] ?? '');
-    $mode = ($input['mode'] ?? 'manual') === 'ai' ? 'ai' : 'manual';
-
-    if ($message === '') {
-        throw new RuntimeException('Mensagem vazia.');
-    }
-
-    $pdo = getConnection();
-    $conversationId = getOrCreateConversation($pdo, $input, $mode);
-
-    saveMessage($pdo, $conversationId, 'user', $message);
+    saveMessage($conversationId, 'user', $message);
 
     if ($mode === 'ai') {
-        $reply = getAiResponse($message);
+        $history = getConversationHistoryForAi($conversationId, 12);
+        $reply = getAiResponse($message, OPENROUTER_CONFIG, $companyProfile, $history);
         $sender = 'ai';
     } else {
-        $reply = getManualResponse($pdo, $message);
+        $reply = getManualResponse($message, $companyProfile);
         $sender = 'bot';
     }
 
-    saveMessage($pdo, $conversationId, $sender, $reply);
-    touchConversation($pdo, $conversationId);
+    saveMessage($conversationId, $sender, $reply);
 
     echo json_encode([
         'conversation_id' => $conversationId,
+        'mode' => $mode,
+        'reply_sender' => $sender,
         'reply' => $reply,
         'sender' => $sender,
     ]);
 } catch (Throwable $error) {
     http_response_code(500);
     echo json_encode([
-        'reply' => 'Erro no chatbot: ' . $error->getMessage(),
-        'sender' => 'bot',
+        'error' => 'Erro no chatbot. Confira banco de dados e configurações.',
+        'detail' => $error->getMessage(),
     ]);
 }
 
-function getOrCreateConversation(PDO $pdo, array $input, string $mode): int
+function getManualResponse(string $message, array $companyProfile): string
 {
-    $conversationId = (int)($input['conversation_id'] ?? 0);
+    $normalized = strtolower(trim($message));
+    $optionResponse = getManualOptionResponse($normalized);
 
-    if ($conversationId > 0) {
-        $stmt = $pdo->prepare('SELECT id FROM chat_conversations WHERE id = ? AND status = "open"');
-        $stmt->execute([$conversationId]);
+    if ($optionResponse !== null) {
+        return $optionResponse;
+    }
 
-        if ($stmt->fetch()) {
-            return $conversationId;
+    if (in_array($normalized, ['5', 'menu', 'opcoes', 'opções'], true)) {
+        return buildManualMenu();
+    }
+
+    if (containsAny($normalized, ['preco', 'preço', 'precificacao', 'precificação', 'valor', 'margem'])) {
+        $p = $companyProfile['precificacao'] ?? [];
+        return "Podemos ajudar com precificação analisando custos, margem e posicionamento.\n"
+            . "Como funciona: " . ($p['analise_custos'] ?? 'levantamos os principais custos do negócio') . "\n"
+            . "Entrega possível: " . ($p['entregavel'] ?? 'orientação e planilha simples') . "\n"
+            . "Digite 4 para falar com a equipe.";
+    }
+
+    if (containsAny($normalized, ['site', 'landing page', 'pagina', 'página', 'sistema', 'tecnologia', 'automacao', 'automação'])) {
+        $t = $companyProfile['tecnologia'] ?? [];
+        return "Na área de tecnologia, a Sete Jr pode apoiar com:\n"
+            . "- " . ($t['sites'] ?? 'sites institucionais e landing pages') . "\n"
+            . "- " . ($t['sistemas'] ?? 'sistemas simples') . "\n"
+            . "- " . ($t['automacao'] ?? 'automação de processos') . "\n"
+            . "Digite 4 para iniciar um atendimento.";
+    }
+
+    if (containsAny($normalized, ['rede social', 'redes sociais', 'instagram', 'marketing', 'conteudo', 'conteúdo'])) {
+        $r = $companyProfile['redes_sociais'] ?? [];
+        return "Podemos ajudar seu negócio nas redes sociais com diagnóstico, organização de perfil e ideias de conteúdo.\n"
+            . ($r['apoio'] ?? 'Apoio em calendário de conteúdo, bio, destaques e chamadas para contato.');
+    }
+
+    if (containsAny($normalized, ['servico', 'serviço', 'servicos', 'serviços', 'fazem', 'oferecem'])) {
+        return "A Sete Jr oferece:\n- " . implode("\n- ", $companyProfile['servicos'] ?? []);
+    }
+
+    if (containsAny($normalized, ['horario', 'horário', 'funcionamento'])) {
+        $h = $companyProfile['horario'] ?? [];
+        return "Horário de atendimento:\n"
+            . "- Segunda a sexta: " . ($h['segunda_a_sexta'] ?? '-') . "\n"
+            . "- Sábado: " . ($h['sabado'] ?? '-') . "\n"
+            . "- Domingo: " . ($h['domingo'] ?? '-');
+    }
+
+    if (containsAny($normalized, ['contato', 'whatsapp', 'telefone', 'email', 'e-mail', 'atendente'])) {
+        return "Contatos da Sete Jr:\n"
+            . "- WhatsApp: " . ($companyProfile['whatsapp'] ?? '-') . "\n"
+            . "- E-mail: " . ($companyProfile['email'] ?? '-') . "\n"
+            . "- Instagram: " . ($companyProfile['instagram'] ?? '-');
+    }
+
+    if (containsAny($normalized, ['localizacao', 'localização', 'endereco', 'endereço', 'onde'])) {
+        return "Endereço/base de atendimento: " . ($companyProfile['endereco'] ?? 'UNIAENE') . ".";
+    }
+
+    return "Posso te ajudar com:\n" . buildManualMenu();
+}
+
+function buildManualMenu(): string
+{
+    return "1 - Desenvolvimento de sites e tecnologia\n"
+        . "2 - Precificação e finanças\n"
+        . "3 - Redes sociais e presença digital\n"
+        . "4 - Falar com a equipe\n"
+        . "5 - Ver este menu novamente";
+}
+
+function containsAny(string $haystack, array $keywords): bool
+{
+    foreach ($keywords as $word) {
+        if (str_contains($haystack, $word)) {
+            return true;
         }
     }
 
-    $stmt = $pdo->prepare(
-        'INSERT INTO chat_conversations (visitor_name, visitor_phone, visitor_email, chatbot_type)
-         VALUES (:visitor_name, :visitor_phone, :visitor_email, :chatbot_type)'
-    );
-
-    $stmt->execute([
-        ':visitor_name' => empty($input['visitor_name']) ? null : trim($input['visitor_name']),
-        ':visitor_phone' => empty($input['visitor_phone']) ? null : trim($input['visitor_phone']),
-        ':visitor_email' => empty($input['visitor_email']) ? null : trim($input['visitor_email']),
-        ':chatbot_type' => $mode,
-    ]);
-
-    return (int)$pdo->lastInsertId();
+    return false;
 }
 
-function saveMessage(PDO $pdo, int $conversationId, string $sender, string $message): void
+function getAiResponse(string $userMessage, array $openRouter, array $companyProfile, array $history = []): string
 {
-    $stmt = $pdo->prepare(
-        'INSERT INTO chat_messages (conversation_id, sender, message)
-         VALUES (:conversation_id, :sender, :message)'
-    );
+    if (empty($openRouter['api_key']) || $openRouter['api_key'] === 'COLE_SUA_CHAVE_OPENROUTER_AQUI') {
+        return 'Modo IA ainda precisa da chave OpenRouter em backend/Core/Config.php. Enquanto isso, use o modo Manual para atendimento.';
+    }
 
-    $stmt->execute([
-        ':conversation_id' => $conversationId,
-        ':sender' => $sender,
-        ':message' => $message,
-    ]);
+    $systemPrompt = "Você é atendente virtual da {$companyProfile['nome']}. "
+        . "Responda em português do Brasil, com tom cordial, direto e comercial. "
+        . "Use apenas as informações oficiais abaixo sobre a empresa. "
+        . "Ajude visitantes interessados em precificação, desenvolvimento de sites, redes sociais, tecnologia, sistemas simples e soluções para pequenos e grandes negócios. "
+        . "Se faltarem informações, peça nome e telefone para a equipe retornar.\n\n"
+        . buildCompanyContext($companyProfile);
+
+    $messages = [['role' => 'system', 'content' => $systemPrompt]];
+    $messages = array_merge($messages, $history);
+    $messages[] = ['role' => 'user', 'content' => $userMessage];
+
+    if (class_exists('\GuzzleHttp\Client')) {
+        return getAiResponseWithGuzzle($openRouter, $messages);
+    }
+
+    return getAiResponseWithCurl($openRouter, $messages);
 }
 
-function touchConversation(PDO $pdo, int $conversationId): void
+function getAiResponseWithGuzzle(array $openRouter, array $messages): string
 {
-    $stmt = $pdo->prepare('UPDATE chat_conversations SET updated_at = NOW() WHERE id = ?');
-    $stmt->execute([$conversationId]);
+    try {
+        $client = new GuzzleHttp\Client([
+            'base_uri' => 'https://openrouter.ai/api/v1/',
+            'timeout' => 20,
+        ]);
+
+        $response = $client->post('chat/completions', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $openRouter['api_key'],
+                'Content-Type' => 'application/json',
+                'HTTP-Referer' => 'http://localhost',
+                'X-Title' => 'Sete Jr - Chatbot',
+            ],
+            'json' => [
+                'model' => $openRouter['model'],
+                'messages' => $messages,
+                'temperature' => 0.6,
+            ],
+        ]);
+
+        $data = json_decode($response->getBody()->getContents(), true);
+        return sanitizeAiText($data['choices'][0]['message']['content'] ?? 'Não consegui gerar uma resposta agora.');
+    } catch (Throwable $error) {
+        return 'No momento estou com instabilidade para responder por IA. Tente o modo Manual ou fale pelo WhatsApp.';
+    }
 }
 
-function getManualResponse(PDO $pdo, string $message): string
+function getAiResponseWithCurl(array $openRouter, array $messages): string
 {
-    $normalized = strtolower(trim($message));
-
-    $stmt = $pdo->prepare(
-        'SELECT response FROM chatbot_options
-         WHERE option_number = :option_number AND active = 1
-         LIMIT 1'
-    );
-    $stmt->execute([':option_number' => $normalized]);
-    $option = $stmt->fetch();
-
-    if ($option) {
-        return $option['response'];
-    }
-
-    if (str_contains($normalized, 'serviço') || str_contains($normalized, 'servico')) {
-        return 'A Sete Jr atua com tecnologia, finanças e empreendedorismo. Digite 1 para ver os serviços principais.';
-    }
-
-    if (str_contains($normalized, 'horário') || str_contains($normalized, 'horario')) {
-        return 'Nosso atendimento inicial acontece em horário comercial. Digite 2 para ver mais detalhes.';
-    }
-
-    if (str_contains($normalized, 'contato') || str_contains($normalized, 'atendente')) {
-        return 'Claro! Envie seu nome, telefone e uma breve descrição do projeto para a equipe retornar.';
-    }
-
-    return 'Não entendi totalmente. Digite 1 para serviços, 2 para horário, 3 para localização ou 4 para falar com um atendente.';
-}
-
-function getAiResponse(string $message): string
-{
-    // Para funcionar, troque OPENROUTER_API_KEY em backend/config.php pela chave real.
-    // Sem chave configurada, o modo IA cai em uma resposta explicativa para não quebrar a apresentação.
-    if (OPENROUTER_API_KEY === 'COLE_SUA_CHAVE_OPENROUTER_AQUI' || OPENROUTER_API_KEY === '') {
-        return 'Modo IA ainda precisa da chave OpenRouter em backend/config.php. Enquanto isso, posso atender pelo fluxo manual.';
-    }
-
     $payload = [
-        'model' => OPENROUTER_MODEL,
-        'messages' => [
-            [
-                'role' => 'system',
-                'content' => 'Você é o atendente virtual da Sete Jr, uma empresa júnior que oferece soluções em tecnologia, finanças e empreendedorismo. Responda de forma breve, educada e orientada a contato comercial.',
-            ],
-            [
-                'role' => 'user',
-                'content' => $message,
-            ],
-        ],
+        'model' => $openRouter['model'],
+        'messages' => $messages,
+        'temperature' => 0.6,
     ];
 
     $ch = curl_init('https://openrouter.ai/api/v1/chat/completions');
@@ -153,24 +202,53 @@ function getAiResponse(string $message): string
         CURLOPT_POST => true,
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/json',
-            'Authorization: Bearer ' . OPENROUTER_API_KEY,
-            'HTTP-Referer: http://localhost/7sitejr',
-            'X-Title: Sete Jr Chatbot',
+            'Authorization: Bearer ' . $openRouter['api_key'],
+            'HTTP-Referer: http://localhost',
+            'X-Title: Sete Jr - Chatbot',
         ],
         CURLOPT_POSTFIELDS => json_encode($payload),
-        CURLOPT_TIMEOUT => 30,
+        CURLOPT_TIMEOUT => 20,
     ]);
 
     $response = curl_exec($ch);
 
     if ($response === false) {
-        $error = curl_error($ch);
         curl_close($ch);
-        return 'Não consegui consultar a IA agora. Erro: ' . $error;
+        return 'Não consegui consultar a IA agora. Tente o modo Manual ou fale pelo WhatsApp.';
     }
 
     curl_close($ch);
     $data = json_decode($response, true);
 
-    return $data['choices'][0]['message']['content'] ?? 'A IA não retornou uma resposta válida agora.';
+    return sanitizeAiText($data['choices'][0]['message']['content'] ?? 'A IA não retornou uma resposta válida agora.');
 }
+
+function buildCompanyContext(array $profile): string
+{
+    $lines = [];
+    $lines[] = 'Nome: ' . ($profile['nome'] ?? '');
+    $lines[] = 'Descrição: ' . ($profile['descricao'] ?? '');
+    $lines[] = 'WhatsApp: ' . ($profile['whatsapp'] ?? '');
+    $lines[] = 'E-mail: ' . ($profile['email'] ?? '');
+    $lines[] = 'Instagram: ' . ($profile['instagram'] ?? '');
+    $lines[] = 'Endereço/base: ' . ($profile['endereco'] ?? '');
+    $lines[] = 'Serviços: ' . implode(', ', $profile['servicos'] ?? []);
+
+    foreach (['precificacao', 'tecnologia', 'redes_sociais'] as $section) {
+        if (!empty($profile[$section]) && is_array($profile[$section])) {
+            $lines[] = ucfirst(str_replace('_', ' ', $section)) . ': ' . implode(' ', $profile[$section]);
+        }
+    }
+
+    return implode("\n", $lines);
+}
+
+function sanitizeAiText(string $text): string
+{
+    $text = preg_replace('/```[\s\S]*?```/u', '', $text) ?? $text;
+    $text = str_replace(['**', '__', '`'], '', $text);
+    $text = preg_replace("/\n{3,}/", "\n\n", $text) ?? $text;
+
+    return trim($text);
+}
+

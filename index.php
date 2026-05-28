@@ -305,6 +305,7 @@
 
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/chatbot.js"></script>
 <footer class="main-footer">
     <div class="footer-content">
         <div class="footer-brand">

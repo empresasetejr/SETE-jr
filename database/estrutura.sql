@@ -33,9 +33,11 @@ CREATE TABLE IF NOT EXISTS chatbot_options (
     active TINYINT(1) NOT NULL DEFAULT 1
 );
 
-INSERT INTO chatbot_options (option_number, title, response, active) VALUES
-('1', 'Conhecer serviços', 'Nossos principais serviços são tecnologia, finanças e empreendedorismo. Podemos ajudar com sites, sistemas simples, automação, planejamento financeiro e modelagem de negócio.', 1),
-('2', 'Horário de atendimento', 'Nosso atendimento inicial acontece em horário comercial. Envie seus dados para combinarmos o melhor horário de retorno.', 1),
-('3', 'Localização', 'A Sete Jr é vinculada ao UNIAENE. Entre em contato para receber o endereço e combinar uma conversa com a equipe.', 1),
-('4', 'Falar com atendente', 'Certo! Informe seu nome, telefone e uma breve descrição do que você precisa para que um atendente possa retornar.', 1);
+DELETE FROM chatbot_options;
 
+INSERT INTO chatbot_options (option_number, title, response, active) VALUES
+('1', 'Desenvolvimento de sites e tecnologia', 'A Sete Jr pode ajudar com sites institucionais, landing pages, sistemas simples, automação de processos e organização digital para pequenos e grandes negócios. Conte rapidamente o que você precisa para avaliarmos o melhor caminho.', 1),
+('2', 'Precificação e finanças', 'Podemos apoiar sua precificação analisando custos fixos, custos variáveis, margem desejada e posicionamento de mercado. Também podemos montar uma planilha simples para ajudar na tomada de decisão.', 1),
+('3', 'Redes sociais e presença digital', 'A Sete Jr pode orientar sua presença digital com diagnóstico de perfil, organização da bio, destaques, ideias de conteúdo, calendário de postagens e chamadas para contato.', 1),
+('4', 'Falar com a equipe', 'Certo! Informe seu nome, telefone e uma breve descrição do seu negócio ou projeto para que a equipe da Sete Jr possa retornar com mais contexto.', 1),
+('5', 'Menu principal', '1 - Desenvolvimento de sites e tecnologia\n2 - Precificação e finanças\n3 - Redes sociais e presença digital\n4 - Falar com a equipe\n5 - Ver este menu novamente', 1);

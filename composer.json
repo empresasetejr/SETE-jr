@@ -1,0 +1,18 @@
+{
+  "name": "sete-jr/site-institucional-chatbot",
+  "description": "Site institucional da Sete Jr com chatbot manual e IA via OpenRouter",
+  "type": "project",
+  "require": {
+    "php": ">=8.0",
+    "guzzlehttp/guzzle": "^7.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "Core\\": "backend/Core/",
+      "Models\\": "backend/Models/"
+    },
+    "files": [
+      "backend/Core/Config.php"
+    ]
+  }
+}
