@@ -29,4 +29,3 @@ const CONFIG = [
     'db' => DB_CONFIG,
     'openrouter' => OPENROUTER_CONFIG,
 ];
-
