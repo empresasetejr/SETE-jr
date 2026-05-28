@@ -1,0 +1,757 @@
+Desenvolvimento de Projeto Institucional com Chatbot
+1. Apresentação da Atividade
+Nesta atividade, vocês deverão desenvolver um site institucional completo para uma empresa real, negócio local, projeto comercial pessoal ou iniciativa profissional fictícia com aparência realista.
+
+O objetivo é aplicar, de forma prática, os conhecimentos de HTML, CSS, JavaScript, PHP e MySQL, desenvolvendo uma solução web organizada, funcional e com separação clara entre frontend, backend e banco de dados.
+
+O projeto não será um e-commerce. Portanto, não haverá carrinho de compras, sistema de pagamento ou venda online. A proposta é construir um site institucional, com foco em apresentação do negócio, serviços/produtos e atendimento ao usuário por meio de um chatbot na página de contato.
+
+2. Objetivo Geral
+Desenvolver um site institucional para uma empresa, negócio ou projeto comercial, contendo páginas básicas de apresentação e uma área de contato com chatbot funcional, capaz de registrar mensagens em banco de dados e responder ao usuário por meio de IA e/ou fluxo manual de respostas.
+
+3. Objetivos Específicos
+Ao final da atividade, a equipe deverá ser capaz de:
+
+Criar uma estrutura básica de site institucional.
+
+Organizar corretamente arquivos HTML, CSS, JavaScript e PHP.
+
+Utilizar boas práticas de separação de responsabilidades no projeto.
+
+Criar uma interface visual coerente com o negócio escolhido.
+
+Implementar uma área de contato com chatbot.
+
+Registrar mensagens do chat em banco de dados MySQL.
+
+Criar respostas automáticas por meio de API de IA e/ou fluxo manual.
+
+Demonstrar domínio básico de frontend, backend e integração com banco de dados.
+
+4. Tema do Projeto
+Cada equipe deverá escolher uma empresa, negócio ou projeto comercial para representar no site.
+
+Exemplos permitidos:
+
+Clínica odontológica.
+
+Escritório de advocacia.
+
+Loja física de roupas.
+
+Restaurante.
+
+Barbearia.
+
+Salão de beleza.
+
+Academia.
+
+Escola de cursos.
+
+Serviço de manutenção.
+
+Agência de marketing.
+
+Projeto pessoal com finalidade comercial.
+
+Pequena empresa local.
+
+O projeto poderá ser baseado em uma empresa real, ou poderá representar uma empresa fictícia com identidade visual e conteúdo coerentes.
+
+5. Estrutura Obrigatória do Projeto
+O projeto deverá conter, no mínimo, as seguintes páginas ou seções:
+
+5.1 Home
+Página inicial.
+
+Deve apresentar:
+
+Nome da empresa ou projeto.
+
+Chamada principal.
+
+Breve descrição do negócio.
+
+Destaques dos serviços ou produtos.
+
+Botão ou link para contato.
+
+Identidade visual coerente com o negócio escolhido.
+
+AQUI A CRIATIVIDADE É O DESTAQUE
+Podem usar e abusar das referências em https://themeforest.net/
+Podem usar ferramentas de scrapping como https://www.httrack.com/ (O uso do HTTrack como ferramenta de estudo, análise de estrutura e aprendizado não é proibido. Entretanto, copiar conteúdo, identidade visual, imagens, textos, códigos, marcas ou páginas inteiras de terceiros e utilizá-los como se fossem próprios, especialmente em um projeto público, comercial ou avaliativo, pode violar direitos autorais, devemos nos pautar sempre pelo rigor ético)
+5.2 Quem Somos / Sobre Nós
+Página destinada à apresentação institucional.
+
+Deve conter:
+
+História ou apresentação do negócio.
+
+Missão, visão e valores, se aplicável.
+
+Diferenciais da empresa.
+
+Informações que ajudem o visitante a conhecer melhor o negócio.
+
+5.3 Produtos / Serviços
+Página destinada à apresentação do que a empresa oferece.
+
+Importante: esta página não deve funcionar como e-commerce.
+
+Deve conter:
+
+Lista de produtos ou serviços.
+
+Descrição breve de cada item.
+
+Imagens, ícones ou cards, quando possível.
+
+Informações organizadas visualmente.
+
+Exemplo:
+
+Serviço 1: descrição.
+
+Serviço 2: descrição.
+
+Serviço 3: descrição.
+
+Não é necessário implementar venda, carrinho ou pagamento.
+
+5.4 Contato com Chatbot
+Esta será a área principal do projeto.
+
+A página de contato deverá conter:
+
+Informações básicas de contato da empresa, como telefone, e-mail, endereço ou redes sociais.
+
+Um chatbot funcional para atendimento inicial ao visitante.
+
+Campo para o usuário digitar mensagens.
+
+Área de exibição da conversa.
+
+Registro das mensagens no banco de dados.
+
+Respostas automáticas por IA e/ou por fluxo manual.
+
+6. Requisitos Técnicos do Frontend
+O frontend poderá ser desenvolvido com:
+
+HTML.
+
+CSS.
+
+JavaScript.
+
+Templates prontos, desde que adaptados.
+
+Projetos próprios.
+
+Inspiração em sites existentes.
+
+Ferramentas de IA para apoio visual e estrutural.
+
+Ferramentas como HTTrack para estudo de estrutura, desde que você compreenda, organize e adapte o projeto.
+
+Não será permitido:
+Usar WordPress.
+
+Entregar apenas um template sem personalização.
+
+Copiar um site completo sem adaptação.
+
+Misturar todo o código em um único arquivo sem organização.
+
+Entregar apenas páginas estáticas sem a parte do chatbot.
+
+7. Organização dos Arquivos
+O projeto deverá ter separação clara entre os arquivos.
+
+Exemplo de estrutura recomendada:
+
+meu-projeto/
+│
+├── index.php
+├── sobre.php
+├── servicos.php
+├── contato.php
+│
+├── assets/
+│   ├── css/
+│   │   └── style.css
+│   │
+│   ├── js/
+│   │   └── chatbot.js
+│   │
+│   └── img/
+│       └── imagens-do-site
+│
+├── backend/
+│   ├── config.php
+│   ├── database.php
+│   ├── chat_save.php
+│   └── chatbot_response.php
+│
+└── database/
+    └── estrutura.sql
+Essa estrutura pode ser adaptada, mas o projeto precisa demonstrar organização e separação de responsabilidades.
+
+8. Requisitos Técnicos do Backend
+O backend deverá utilizar:
+
+PHP.
+
+MySQL.
+
+Conexão com banco de dados.
+
+Registro das mensagens enviadas pelo usuário.
+
+Retorno de respostas para o chatbot.
+
+A equipe deverá criar um banco de dados MySQL e uma tabela para armazenar as mensagens do chat.
+
+9. Banco de Dados
+O projeto deverá utilizar banco de dados MySQL para armazenar as conversas realizadas no chatbot.
+
+Inicialmente, poderíamos criar apenas uma tabela simples chamada chats, com campos como telefone, origem, mensagem e data. Porém, em um chatbot mais próximo de um sistema real, é importante separar melhor as informações.
+
+Por isso, o projeto deverá trabalhar com uma estrutura simples, mas mais organizada, composta por duas tabelas obrigatórias:
+
+chat_conversations
+
+chat_messages
+
+Além dessas, a equipe poderá utilizar uma terceira tabela recomendada:
+
+chatbot_options
+
+Essa estrutura permite que o sistema armazene não apenas mensagens soltas, mas também conversas completas, com histórico, identificação do visitante e origem de cada mensagem.
+
+9.1 Estrutura geral do banco
+O banco de dados deverá conter, no mínimo, as tabelas abaixo:
+
+CREATE DATABASE IF NOT EXISTS devweb_chatbot
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE devweb_chatbot;
+
+CREATE TABLE chat_conversations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    visitor_name VARCHAR(100) NULL,
+    visitor_phone VARCHAR(20) NULL,
+    visitor_email VARCHAR(150) NULL,
+    chatbot_type ENUM('manual', 'ai') NOT NULL DEFAULT 'manual',
+    status ENUM('open', 'closed') NOT NULL DEFAULT 'open',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL
+);
+
+CREATE TABLE chat_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id INT NOT NULL,
+    sender ENUM('user', 'bot', 'ai') NOT NULL,
+    message TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (conversation_id) REFERENCES chat_conversations(id)
+);
+
+CREATE TABLE chatbot_options (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    option_number VARCHAR(10) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    response TEXT NOT NULL,
+    active TINYINT(1) NOT NULL DEFAULT 1
+);
+9.2 Tabela chat_conversations
+A tabela chat_conversations será responsável por armazenar os dados gerais de cada conversa iniciada no chatbot.
+
+Cada vez que um visitante iniciar um atendimento, uma nova conversa poderá ser criada nessa tabela.
+
+CREATE TABLE chat_conversations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    visitor_name VARCHAR(100) NULL,
+    visitor_phone VARCHAR(20) NULL,
+    visitor_email VARCHAR(150) NULL,
+    chatbot_type ENUM('manual', 'ai') NOT NULL DEFAULT 'manual',
+    status ENUM('open', 'closed') NOT NULL DEFAULT 'open',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL
+);
+Explicação dos campos
+Campo	Descrição
+id	Identificador único da conversa
+visitor_name	Nome do visitante, quando informado
+visitor_phone	Telefone do visitante, quando informado
+visitor_email	E-mail do visitante, quando informado
+chatbot_type	Tipo de chatbot usado na conversa: manual ou ai
+status	Status da conversa: open para aberta ou closed para encerrada
+created_at	Data e hora em que a conversa foi iniciada
+updated_at	Data e hora da última atualização da conversa
+9.3 Tabela chat_messages
+A tabela chat_messages será responsável por armazenar todas as mensagens enviadas durante a conversa.
+
+Cada mensagem deverá estar vinculada a uma conversa por meio do campo conversation_id.
+
+CREATE TABLE chat_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id INT NOT NULL,
+    sender ENUM('user', 'bot', 'ai') NOT NULL,
+    message TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (conversation_id) REFERENCES chat_conversations(id)
+);
+Explicação dos campos
+Campo	Descrição
+id	Identificador único da mensagem
+conversation_id	Identifica a qual conversa a mensagem pertence
+sender	Indica quem enviou a mensagem: user, bot ou ai
+message	Conteúdo da mensagem enviada
+created_at	Data e hora em que a mensagem foi registrada
+Valores possíveis para o campo sender
+Valor	Significado
+user	Mensagem enviada pelo visitante
+bot	Resposta enviada pelo chatbot manual
+ai	Resposta gerada pela Inteligência Artificial
+Exemplo prático:
+
+conversation_id	sender	message
+1	user	Olá
+1	bot	Olá! Como posso ajudar? Digite 1 para serviços, 2 para horário ou 3 para localização.
+1	user	2
+1	bot	Nosso horário de atendimento é de segunda a sexta, das 8h às 18h.
+9.4 Tabela recomendada: chatbot_options
+A tabela chatbot_options será usada para armazenar as opções do chatbot tradicional, ou seja, o chatbot com respostas prontas.
+
+Essa tabela é recomendada para organizar melhor as respostas, mas a equipe também poderá implementar as respostas manuais diretamente no PHP, usando if, else ou switch.
+
+CREATE TABLE chatbot_options (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    option_number VARCHAR(10) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    response TEXT NOT NULL,
+    active TINYINT(1) NOT NULL DEFAULT 1
+);
+Explicação dos campos
+Campo	Descrição
+id	Identificador único da opção
+option_number	Número ou código digitado pelo usuário
+title	Título da opção
+response	Resposta que será enviada pelo chatbot
+active	Indica se a opção está ativa ou não
+Exemplo de cadastro de respostas prontas:
+
+INSERT INTO chatbot_options 
+(option_number, title, response, active) 
+VALUES
+('1', 'Conhecer serviços', 'Nossos principais serviços são: atendimento personalizado, consultoria e suporte ao cliente.', 1),
+('2', 'Horário de atendimento', 'Nosso horário de atendimento é de segunda a sexta, das 8h às 18h.', 1),
+('3', 'Localização', 'Estamos localizados no centro da cidade. Entre em contato para receber o endereço completo.', 1),
+('4', 'Falar com atendente', 'Certo! Informe seu nome e telefone para que um atendente possa retornar o contato.', 1);
+9.5 Funcionamento esperado no banco de dados
+A equipe deverá registrar no banco de dados tanto as mensagens enviadas pelo visitante quanto as respostas enviadas pelo chatbot.
+
+Exemplo de fluxo:
+
+Usuário acessa a página de contato
+        ↓
+Sistema cria uma conversa em chat_conversations
+        ↓
+Usuário envia uma mensagem
+        ↓
+Mensagem do usuário é salva em chat_messages
+        ↓
+Sistema gera uma resposta manual ou por IA
+        ↓
+Resposta do bot ou da IA é salva em chat_messages
+        ↓
+Resposta é exibida na tela do chatbot
+9.6 Chatbot Manual / Chatbot com IA
+O projeto deverá conter os dois formatos de chatbot:
+
+Chatbot manual, com respostas prontas e fluxo baseado em opções.
+
+Chatbot com IA, utilizando a API da OpenRouter (Vamos verificar a possibilidade de usarmos uma LLM gratuita pela OpenRouter).
+
+A equipe poderá escolher qual dos dois modos será o principal no site, mas deverá demonstrar que os dois foram implementados.
+
+Em ambos os casos, as mensagens deverão ser armazenadas no banco de dados.
+
+9.7 Exemplo de chatbot manual
+No chatbot manual, o sistema poderá exibir uma mensagem inicial como:
+
+Olá! Seja bem-vindo(a). Como posso ajudar?
+
+Digite:
+1 - Conhecer nossos serviços
+2 - Ver horário de atendimento
+3 - Saber nossa localização
+4 - Falar com um atendente
+Se o usuário digitar 1, o sistema poderá buscar a resposta correspondente na tabela chatbot_options ou tratar diretamente no PHP.
+
+Exemplo usando a tabela chatbot_options:
+
+SELECT response 
+FROM chatbot_options 
+WHERE option_number = '1' 
+AND active = 1;
+9.8 Exemplo de chatbot com IA
+No chatbot com IA, o fluxo será diferente.
+
+O usuário poderá digitar uma pergunta livre, como:
+
+Quais serviços vocês oferecem?
+O PHP deverá enviar essa pergunta para a API da OpenRouter e retornar a resposta gerada pela IA.
+
+Mesmo usando IA, a mensagem do usuário e a resposta da IA deverão ser salvas na tabela chat_messages.
+
+Exemplo:
+
+conversation_id	sender	message
+2	user	Quais serviços vocês oferecem?
+2	ai	Oferecemos consultoria, atendimento personalizado e suporte especializado.
+9.9 Versão simplificada permitida
+Será permitido implementar uma versão simplificada do chatbot manual.
+
+Nesse caso, a equipe poderá criar as respostas prontas diretamente no PHP, sem usar a tabela chatbot_options.
+
+Exemplo:
+
+if ($message == "1") {
+    $response = "Nossos principais serviços são atendimento personalizado, consultoria e suporte.";
+} elseif ($message == "2") {
+    $response = "Nosso horário de atendimento é de segunda a sexta, das 8h às 18h.";
+} elseif ($message == "3") {
+    $response = "Estamos localizados no centro da cidade.";
+} else {
+    $response = "Desculpe, não entendi. Digite 1, 2 ou 3.";
+}
+Mesmo nessa versão simplificada, a equipe deverá salvar no banco de dados:
+
+a mensagem enviada pelo usuário;
+
+a resposta enviada pelo bot;
+
+a origem de cada mensagem;
+
+a data e hora do envio.
+
+9.10 Requisitos mínimos do banco de dados
+O projeto deverá obrigatoriamente:
+
+Utilizar MySQL.
+
+Criar a tabela chat_conversations.
+
+Criar a tabela chat_messages.
+
+Salvar as mensagens enviadas pelo visitante.
+
+Salvar as respostas enviadas pelo chatbot manual ou pela IA.
+
+Identificar quem enviou cada mensagem: user, bot ou ai.
+
+Registrar data e hora das mensagens.
+
+Entregar um arquivo .sql com a estrutura do banco de dados.
+
+9.11 Requisitos recomendados
+Além dos requisitos mínimos, recomenda-se que a equipe:
+
+Crie a tabela chatbot_options.
+
+Salve nome, telefone e e-mail do visitante.
+
+Permita escolher entre chatbot manual e chatbot com IA.
+
+Mantenha o histórico da conversa na tela.
+
+Permita encerrar uma conversa.
+
+Utilize mensagens iniciais personalizadas de acordo com o negócio escolhido.
+
+10. Funcionamento do Chatbot
+O chatbot deverá permitir que o visitante envie mensagens e receba respostas automáticas.
+
+O projeto poderá seguir uma das duas abordagens abaixo.
+
+Opção 1 — Chatbot com IA
+Nesta opção, o chatbot deverá se conectar a uma API de Inteligência Artificial.
+
+A sugestão para a disciplina será o uso da API da OpenRouter.
+
+O fluxo básico será:
+
+Usuário digita uma mensagem no chatbot.
+
+JavaScript envia a mensagem para o backend em PHP.
+
+PHP salva a mensagem no banco de dados.
+
+PHP envia a mensagem para a API de IA.
+
+A IA retorna uma resposta.
+
+PHP salva a resposta no banco de dados.
+
+JavaScript exibe a resposta na tela.
+
+O chatbot com IA deverá ser orientado ao contexto da empresa escolhida.
+
+Exemplo:
+
+Se o site for de uma clínica odontológica, o chatbot deve responder como atendente da clínica, falando sobre horários, serviços, localização e formas de contato.
+
+Opção 2 — Chatbot Manual com Respostas Prontas
+Nesta opção, a equipe deverá criar um fluxo manual de atendimento.
+
+Exemplo:
+
+Olá! Seja bem-vindo(a). Como posso ajudar?
+
+Digite:
+1 - Conhecer nossos serviços
+2 - Ver horário de atendimento
+3 - Falar com um atendente
+4 - Saber nossa localização
+Exemplo de fluxo:
+
+Usuário: 1
+
+Bot: Nossos principais serviços são:
+- Limpeza
+- Restauração
+- Clareamento
+- Avaliação odontológica
+O chatbot manual deverá ter lógica baseada na conversa, não apenas uma única resposta fixa para qualquer mensagem.
+
+11. Requisitos Mínimos do Chatbot
+O chatbot deverá obrigatoriamente:
+
+Estar localizado na página de contato.
+
+Permitir o envio de mensagens pelo usuário.
+
+Exibir a conversa na tela.
+
+Salvar as mensagens no banco de dados.
+
+Identificar a origem da mensagem, por exemplo: usuário, bot ou IA.
+
+Retornar alguma resposta automática.
+
+Ter layout minimamente organizado.
+
+Estar integrado ao backend PHP.
+
+12. Requisitos Desejáveis
+Além dos requisitos mínimos, serão considerados diferenciais:
+
+Chatbot com visual semelhante a aplicativos de mensagem.
+
+Histórico da conversa enquanto o usuário navega.
+
+Campo para nome, telefone ou e-mail antes de iniciar o atendimento.
+
+Respostas personalizadas de acordo com o tipo de negócio.
+
+Uso da API da OpenRouter.
+
+Tratamento de erros.
+
+Validação dos campos.
+
+Organização do código em funções.
+
+Comentários explicativos no código.
+
+Layout responsivo para celular.
+
+Identidade visual bem aplicada.
+
+Uso adequado de imagens, cores e tipografia.
+
+Arquivo SQL para importação do banco de dados.
+
+Área Administrativa (Não precisa ter login)
+13. Entregáveis
+A equipe deverá entregar:
+
+13.1 Arquivos do Projeto (Via Github)
+Todos os arquivos do site, incluindo:
+
+HTML/PHP.
+
+CSS.
+
+JavaScript.
+
+Backend PHP.
+
+Imagens e assets utilizados.
+
+Arquivo SQL do banco de dados.
+
+13.2 Banco de Dados (Também via Github)
+Deverá ser entregue um arquivo .sql contendo:
+
+Criação do banco ou das tabelas.
+
+Estrutura da tabela de chat.
+
+Dados de exemplo, se houver.
+
+13.3 Apresentação do Projeto
+A equipe deverá apresentar:
+
+Qual empresa ou negócio foi escolhido.
+
+Qual problema o site busca resolver.
+
+Como o site foi estruturado.
+
+Como o chatbot funciona.
+
+Se o chatbot usa IA ou respostas prontas.
+
+Como as mensagens são salvas no banco.
+
+Quais foram as principais dificuldades encontradas.
+
+14. Critérios de Avaliação
+A atividade será avaliada com base nos seguintes critérios:
+
+Critério	Pontuação sugerida
+Estrutura institucional do site	2,0
+Organização dos arquivos e boas práticas	2,0
+Qualidade visual e responsividade	1,5
+Funcionamento do chatbot	2,0
+Integração com banco de dados MySQL	1,5
+Apresentação e explicação do projeto	1,0
+Total	10,0
+15. Detalhamento dos Critérios
+15.1 Estrutura institucional do site — 2,0 pontos
+Será avaliado se o site possui as páginas obrigatórias:
+
+Home.
+
+Quem Somos / Sobre Nós.
+
+Produtos / Serviços.
+
+Contato com chatbot.
+
+Também será avaliado se o conteúdo faz sentido para o negócio escolhido.
+
+15.2 Organização dos arquivos e boas práticas — 2,0 pontos
+Será avaliado se o projeto apresenta:
+
+Separação entre HTML/PHP, CSS e JavaScript.
+
+Pastas organizadas.
+
+Código legível.
+
+Nomes de arquivos compreensíveis.
+
+Ausência de código totalmente misturado em um único arquivo.
+
+Uso adequado de comentários quando necessário.
+
+15.3 Qualidade visual e responsividade — 1,5 ponto
+Será avaliado se o site:
+
+Possui boa aparência visual.
+
+Usa cores, fontes e imagens de forma coerente.
+
+É agradável de navegar.
+
+Funciona minimamente em telas menores.
+
+Mantém identidade visual adequada ao negócio escolhido.
+
+15.4 Funcionamento do chatbot — 2,0 pontos
+Será avaliado se o chatbot:
+
+Permite envio de mensagens.
+
+Exibe as mensagens na tela.
+
+Retorna respostas automáticas.
+
+Está integrado à página de contato.
+
+Apresenta um fluxo coerente de atendimento.
+
+Usa IA ou respostas prontas de forma funcional.
+
+15.5 Integração com banco de dados — 1,5 ponto
+Será avaliado se o projeto:
+
+Usa MySQL.
+
+Possui tabela de chat.
+
+Salva mensagens enviadas pelo usuário.
+
+Registra origem da mensagem.
+
+Registra data e hora.
+
+Possui arquivo SQL para importação.
+
+15.6 Apresentação do projeto — 1,0 ponto
+Será avaliado se o aluno e a equipe conseguem explicar:
+
+O negócio escolhido.
+
+A estrutura do site.
+
+O funcionamento do chatbot.
+
+A integração com o banco.
+
+As decisões técnicas utilizadas.
+
+16. Observações Importantes
+O projeto deve representar um site institucional, não uma loja virtual.
+
+O chatbot é a parte principal da atividade.
+
+O uso de templates é permitido, desde que haja adaptação, organização e entendimento do código.
+
+O uso de IA como apoio é permitido, mas o aluno deverá compreender e explicar o funcionamento do projeto.
+
+Não será aceito projeto feito em WordPress.
+
+Projetos copiados sem adaptação poderão ter a nota reduzida.
+
+A apresentação será parte da avaliação.
+
+A equipe deverá entregar o projeto funcionando localmente.
+
+17. Sugestão de Fluxo Técnico do Chatbot
+Fluxo simplificado esperado:
+
+Usuário acessa a página de contato
+        ↓
+Digita uma mensagem no chatbot
+        ↓
+JavaScript envia a mensagem para o PHP
+        ↓
+PHP salva a mensagem no MySQL
+        ↓
+PHP processa a resposta
+        ↓
+Resposta pode vir da IA ou de fluxo manual
+        ↓
+PHP retorna a resposta para o JavaScript
+        ↓
+JavaScript exibe a resposta no chatbot
