@@ -1,31 +1,71 @@
 <?php
+
 /**
- * Configuração global do projeto.
+ * Configuracao global do projeto.
  *
- * Antes da apresentação:
+ * Antes da apresentacao ou deploy:
  * 1. Importe database/estrutura.sql no MySQL.
- * 2. Confira usuário e senha do banco abaixo.
- * 3. Se for usar IA, cole sua chave da OpenRouter em OPENROUTER_CONFIG['api_key'].
- * 4. Se instalar dependências, rode composer install na raiz do projeto.
+ * 2. Configure as variaveis no arquivo .env.
+ * 3. Se for usar IA, preencha OPENROUTER_API_KEY no .env.
+ * 4. Se instalar dependencias, rode composer install na raiz do projeto.
  */
 
-const APP_NAME = 'Sete Jr';
+function loadProjectEnv(string $path): void
+{
+    if (!is_file($path)) {
+        return;
+    }
 
-const DB_CONFIG = [
-    'host' => '127.0.0.1',
-    'port' => '3306',
-    'name' => 'devweb_chatbot',
-    'user' => 'root',
-    'pass' => '',
-];
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-const OPENROUTER_CONFIG = [
-    'api_key' => 'COLE_SUA_CHAVE_OPENROUTER_AQUI',
-    'model' => 'openai/gpt-oss-120b:free',
-];
+    foreach ($lines ?: [] as $line) {
+        $line = trim($line);
 
-const CONFIG = [
+        if ($line === '' || str_starts_with($line, '#') || !str_contains($line, '=')) {
+            continue;
+        }
+
+        [$key, $value] = explode('=', $line, 2);
+        $key = trim($key);
+        $value = trim($value, " \t\n\r\0\x0B\"'");
+
+        if ($key !== '' && getenv($key) === false) {
+            putenv("{$key}={$value}");
+            $_ENV[$key] = $value;
+        }
+    }
+}
+
+function envValue(string $key, string $default = ''): string
+{
+    $value = getenv($key);
+
+    if ($value === false) {
+        return $_ENV[$key] ?? $default;
+    }
+
+    return $value;
+}
+
+loadProjectEnv(__DIR__ . '/../../.env');
+
+define('APP_NAME', envValue('APP_NAME', 'Sete Jr'));
+
+define('DB_CONFIG', [
+    'host' => envValue('DB_HOST', '127.0.0.1'),
+    'port' => envValue('DB_PORT', '3306'),
+    'name' => envValue('DB_NAME', 'devweb_chatbot'),
+    'user' => envValue('DB_USER', 'root'),
+    'pass' => envValue('DB_PASS', ''),
+]);
+
+define('OPENROUTER_CONFIG', [
+    'api_key' => envValue('OPENROUTER_API_KEY'),
+    'model' => envValue('OPENROUTER_MODEL', 'openai/gpt-oss-120b:free'),
+]);
+
+define('CONFIG', [
     'app_name' => APP_NAME,
     'db' => DB_CONFIG,
     'openrouter' => OPENROUTER_CONFIG,
-];
+]);
